@@ -5,6 +5,10 @@ from djangoappengine.settings_base import *
 
 import os
 
+# Activate django-dbindexer for the default database
+# DATABASES['native'] = DATABASES['default']
+# DATABASES['default'] = {'ENGINE': 'dbindexer', 'TARGET': 'native'}
+
 GAE_SETTINGS_MODULES = (
 	'gae_settings',
 )
