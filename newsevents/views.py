@@ -92,6 +92,7 @@ def events_index(request,page=1):
 	today = datetime.datetime.today()
 
 	events = Event.objects.filter(start__gte=today)
+	events_now = Event.objects.filter(start__lte=now,end__gte=now)
 
 	calendar = { 'day':now.day, 'month':now.month, 'year':now.year, 'start_weekday':datetime.date(now.year,now.month,1).weekday() }
 	
@@ -99,6 +100,7 @@ def events_index(request,page=1):
 		'newsevents/events-index.html',
 		{
 			'nav_category':'events',
+			'events_now':events_now,
 			'events':events,
 			'calendar':calendar
 		},
@@ -106,11 +108,9 @@ def events_index(request,page=1):
 	)
 
 
-def view_event(request,date,slug):
+def view_event(request,id,slug):
 
-	date = datetime.datetime.strptime(date,"%d-%m-%Y")
-
-	event = Event.objects.filter(slug=slug)[0]
+	event = Event.objects.filter(id=id,slug=slug)[0]
 	
 	
 	return render_to_response(
@@ -118,7 +118,6 @@ def view_event(request,date,slug):
 		{
 			'nav_category':'events',
 			'event':event,
-			'attending':type(event.attending)
 		},
 		context_instance=RequestContext(request)
 	)

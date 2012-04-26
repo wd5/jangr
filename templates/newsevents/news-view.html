@@ -21,7 +21,6 @@
 
 <section class="comments" id="comments">
 
-{% comment %}
 {% get_comment_count for article as comment_count %}
 {% if comment_count %}
 	<h2>{{ comment_count }} {% if comment_count == 1%}коментар{% else %}коментара{% endif %}.</h2>
@@ -32,7 +31,6 @@
 {% render_comment_list for article %}
 
 {% render_comment_form for article %}
-{% endcomment %}
 
 </section>
 

@@ -2,9 +2,7 @@
 
 {% load comments i18n %}
 
-<div>
-
-<form action="{% comment_form_target %}" method="post" class="comment-form span12">{% csrf_token %}
+<form action="{% comment_form_target %}" method="post" class="comment-form">{% csrf_token %}
 
 	{#{% if next %}<div><input type="hidden" name="next" value="{{ next }}" /></div>{% endif %}#}
 	
@@ -24,13 +22,9 @@
 				
 			{% else %}
 	
-				<div class="row{% if field.errors %} error{% endif %}" style="height:54px;">
+				<div class="comment-form-box{% if field.errors %} error{% endif %}">
 				
-					<div class="comment-avatar"></div>
-			
-					<div class="span9" style="margin-left:0;height:100%;">{{ field }}</div>
-					
-					<div class="span2"><input type="submit" name="post" class="span2" value="Прати" /></div>
+					<div class="comment-avatar"></div>{{ field }}<input type="submit" name="post" class="comment-button btn" value="&raquo;" />
 				
 				</div>
 			
@@ -42,9 +36,10 @@
 
 </form>
 
-</div>
-
 {% else %}
 
-<div style="margin:0;background:rgba(128,128,128,0.2);padding:18px;text-align:center;text-shadow:0 1px 0 white;color:#555">За да коментираш, трябва да <a href=#>влезеш</a> (или <a href=#>да се регистрираш</a>, ако още не си).</div>
+<div class="login-stone">
+	За да коментираш, трябва да <a href=#>влезеш</a> (или <a href=#>да се регистрираш</a>, ако още не си).
+</div>
+
 {% endif %}

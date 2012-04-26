@@ -84,7 +84,7 @@ class Event (models.Model):
 			'newsevents.views.view_event',
 			(),
 			{
-				'date': self.start.strftime("%d-%m-%Y"),
+				'id': self.id,
 				'slug': self.slug
 			}
 		)

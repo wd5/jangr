@@ -2,8 +2,10 @@
 
 <article class="comment clearfix">
 	<div class="comment-avatar"></div>
-	<div class="comment-author">{{ comment.name }} <span class="comment-date" style="color:#888;font-weight:normal">{{ comment.submit_date }}</span></div>
-	<div class="comment-text">{{ comment.comment }}</div>
+	<div class="comment-body">
+		<div class="comment-author">{{ comment.name }} <span class="comment-date" style="color:#888;font-weight:normal">{{ comment.submit_date }}</span></div>
+		<div class="comment-text">{{ comment.comment }}</div>
+	</div>
 </article>
 
 {% endfor %}

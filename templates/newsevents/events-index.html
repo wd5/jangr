@@ -8,11 +8,25 @@
 
 <h1>Афиш</h1>
 
+	{% if events_now %}
+	<article style="margin-bottom:9px">
+
+		<h2><small class="date-display">В момента</small></h2>
+
+		{% for event in events_now|dictsort:"end" %}
+		
+		{% include "newsevents/events-list-item.html" %}
+		
+		{% endfor %}
+
+	</article>
+	{% endif %}
+
 	
 	{% for day in events_by_date %}
 	<article style="margin-bottom:9px">
 
-		<h2><small>{{day.grouper|date:"D, d M"}}</small></h2>
+		<h2><small class="event-list-date">{{day.grouper|date:"D, d M"}}</small></h2>
 
 		{% for event in day.list %}
 		

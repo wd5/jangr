@@ -7,7 +7,7 @@ admin.autodiscover()
 
 
 urlpatterns = patterns('',
-	url(r'^media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': 'D:/Web/Projects/narodna-samodeinost/new/media/'}),
+	url(r'^media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': 'D:/Web/Projects/jangr/jangr/_media/'}),
 	url(r'^comments/', include('mycomments.urls')),
 	url(r'^', include('samodei.urls')),
 	url(r'^', include('archive.urls')),

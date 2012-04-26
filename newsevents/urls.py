@@ -11,6 +11,6 @@ urlpatterns = patterns('newsevents.views',
 	url(r'^news/$', 'news_index'),
 	#url(r'^news/(?P<date>.+)/(?P<article>.+)/$', 'news_index'),
 	
-	url(r'^events/(?P<date>.+)/(?P<slug>.+)/$', 'view_event'),
+	url(r'^events/(?P<id>.+)/(?P<slug>.+)/$', 'view_event'),
 	url(r'^events/$', 'events_index'),
 )
