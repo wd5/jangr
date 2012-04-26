@@ -72,8 +72,8 @@ class Event (models.Model):
 	
 	location = models.ForeignKey(CatalogEntry,blank=True,null=True)
 
-	attending = fields.ListField(editable=False)
-	attending_maybe = fields.ListField(editable=False)
+	# attending = fields.ListField(editable=False)
+	# attending_maybe = fields.ListField(editable=False)
 	
 	def __unicode__(self):
 		return unicode(self.title)

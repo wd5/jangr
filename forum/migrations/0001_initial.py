@@ -13,7 +13,8 @@ class Migration(SchemaMigration):
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('parent', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['forum.ForumSection'], null=True, blank=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('description', self.gf('django.db.models.fields.CharField')(max_length=200)),
+            ('slug', self.gf('django.db.models.fields.CharField')(max_length=20, blank=True)),
+            ('description', self.gf('django.db.models.fields.CharField')(max_length=200, blank=True)),
             ('can_have_threads', self.gf('django.db.models.fields.BooleanField')(default=True)),
         ))
         db.send_create_signal('forum', ['ForumSection'])
@@ -22,6 +23,7 @@ class Migration(SchemaMigration):
         db.create_table('forum_forumthread', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('parent', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['forum.ForumSection'])),
+            ('title', self.gf('django.db.models.fields.CharField')(max_length=200)),
         ))
         db.send_create_signal('forum', ['ForumThread'])
 
@@ -54,15 +56,17 @@ class Migration(SchemaMigration):
         'forum.forumsection': {
             'Meta': {'object_name': 'ForumSection'},
             'can_have_threads': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'description': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
+            'description': ('django.db.models.fields.CharField', [], {'max_length': '200', 'blank': 'True'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'parent': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['forum.ForumSection']", 'null': 'True', 'blank': 'True'})
+            'parent': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['forum.ForumSection']", 'null': 'True', 'blank': 'True'}),
+            'slug': ('django.db.models.fields.CharField', [], {'max_length': '20', 'blank': 'True'})
         },
         'forum.forumthread': {
             'Meta': {'object_name': 'ForumThread'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'parent': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['forum.ForumSection']"})
+            'parent': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['forum.ForumSection']"}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '200'})
         }
     }
 

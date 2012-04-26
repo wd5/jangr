@@ -38,7 +38,7 @@ class DocumentCollection (models.Model):
 	title = models.CharField(max_length=64)
 	slug = AutoSlugField(populate_from='title', slugify=util.unicode_slug)
 	
-	documents = models.ManyToManyField('Document',through='DocumentInAlbum')
+	documents = models.ManyToManyField('Document',through='DocumentInCollection')
 	
 	def __unicode__(self):
 		return unicode(self.title)

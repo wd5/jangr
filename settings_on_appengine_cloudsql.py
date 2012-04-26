@@ -1,9 +1,5 @@
 import os
 
-GAE_SETTINGS_MODULES = (
-	'gae_settings',
-)
-
 DATABASES = {
 	'default': {
 		'ENGINE': 'google.appengine.ext.django.backends.rdbms',
@@ -21,6 +17,8 @@ MIDDLEWARE_CLASSES = (
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 )
+
+SOUTH_DATABASE_ADAPTERS = { 'default' : 'south.db.mysql' }
 
 INSTALLED_APPS = (
 	'djangotoolbox',
@@ -86,6 +84,8 @@ STATIC_ROOT = os.path.join(os.path.dirname(__file__), '_sitestatic')
 STATICFILES_DIRS = (
 	os.path.join(os.path.dirname(__file__), '_static'),
 )
+
+DEBUG = True
 
 if DEBUG: 
 	STATIC_URL = '/devstatic/'
