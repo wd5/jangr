@@ -36,7 +36,7 @@ INSTALLED_APPS = (
 	'django.contrib.comments',
 	'django.contrib.markup',
 	
-	# 'south', # south 0.7.3 -- schema migration manager
+	'south', # south 0.7.3 -- schema migration manager
 	# 'compressor', # django_compressor
 	'sorl.thumbnail', # image thumbnailer
 	'genericm2m', # generic many-to-many relations
