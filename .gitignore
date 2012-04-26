@@ -27,11 +27,3 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
-
-# ignore dependencies
-autoload
-dbindexer
-django
-djangoappengine
-djangotoolbox
-django_mongodb_engine
