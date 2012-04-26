@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from autoslug import AutoSlugField
-from django.db import models
 from util import *
+from django.db import models
 from newsevents.models import Article, Event
 
 class Feed (models.Model):

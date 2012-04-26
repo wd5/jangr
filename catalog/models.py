@@ -5,6 +5,7 @@ from util import *
 from archive.models import Artist
 from documents.models import Document, DocumentCollection
 from genericm2m.models import RelatedObjectsDescriptor
+from django.db import models
 
 PlaceTypes = (
 	('ven', u'Сцена (клуб и т.н.)'),

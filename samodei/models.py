@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
+from util import unicode_slug
 from django.db import models
-from util import *
 from autoslug import AutoSlugField
 
 from genericm2m.models import BaseGFKRelatedObject, RelatedObjectsDescriptor

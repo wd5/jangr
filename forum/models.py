@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from autoslug import AutoSlugField
 from util import *
+from django.db import models
 
 class ForumSection (models.Model):
 	parent = models.ForeignKey('self',blank=True,null=True)
