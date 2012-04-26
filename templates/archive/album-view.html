@@ -1,0 +1,22 @@
+{% extends "page-inner.html" %}
+{% load thumbnail %}
+
+{% block title %} {{ artist.name }} – {{ song.title }} ({{ media.title }}) {% endblock %}
+
+{% block page_content %}
+
+<hgroup>
+<h1>{{ album.title }} {% if album.released %}({{ album.released }}){% endif %}</h1>
+<h2>Албум на {% for artist in album.artists.all %}{% if forloop.counter0 > 0 %}, {% endif %}<a href="/artists/{{artist.slug}}">{{artist}}</a>{% endfor %}</h2>
+</hgroup>
+
+<section>
+
+<h3>Съдържание:</h3>
+<ul>
+	{% for track in album.albumtrack_set.all %}<li>{{ track.number }}. {{ track.song }}</li>{% endfor %}
+</ul>
+
+</section>
+
+{% endblock %}

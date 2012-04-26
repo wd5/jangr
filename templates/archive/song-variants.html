@@ -1,0 +1,16 @@
+{% extends "page.html" %}
+{% block title %} {{ artist_details.name }} – {{ song_details.title }} {% endblock %}
+
+{% block page_content %}
+<h1>{{ song_details.title }}</h1>
+
+{% if media_list %}
+    <ul>
+    {% for media in media_list %}
+        <li><a href="{{ media.slug }}/">{{ media.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No media available.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends "page-inner.html" %}
+{% load thumbnail markup %}
+
+{% block title %}{{ artist.name }} - биография, състав, песни, текстове и акорди на {{artist.name}} :: Samode.us{% endblock %}
+
+{% block page_content %}
+
+<article itemscope itemtype="http://schema.org/MusicGroup">
+
+<div class="row">
+	<div class="span4">
+		{% thumbnail artist.picture "225x108" crop="center" as im %}
+			<img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" />	
+		{% empty %}
+			<img src="http://placekitten.com/225/108" />	
+		{% endthumbnail %}
+	</div>
+	<div class="span4">
+		<h1 itemprop="name"><strong>{{ artist.name }}</strong></h1>
+	</div>
+</div>
+
+<div class="row" style="padding: 9px 0">
+	<div class="span8">
+		<ul class="tag-list">
+			<li><a href=#><i class="icon-tag"></i>пънк</a></li>
+			<li><a href=#><i class="icon-tag"></i>таг2</a></li>
+			<li><a href=#><i class="icon-tag"></i>таг3</a></li>
+			<li><a href=#><i class="icon-tag"></i>таг4</a></li>
+			<li><a href=#><i class="icon-tag"></i>таг5</a></li>
+		</ul>
+	</div>
+</div>
+
+{% if artist.description %}
+<section itemprop="description" style="margin-bottom:18px;">{{ artist.description|markdown }}</section>
+{% endif %}
+	
+{% if artist.members.all %}
+<section id="members">
+	<h2>Състав</h2>
+    <ul>
+    {% for member in artist.membership_set.all %}
+        <li itemprop="musicGroupMember" itemscope itemtype="http://schema.org/Person">
+			<a href="/people/{{member.person.slug}}/"><span itemprop="name">{{ member.person.name }}</span>{% if not member.person.alive %}&dagger;{% endif %}</a>
+			{% if member.instrument %}&mdash; {{ member.instrument }}{% endif %}
+			{% if member.years %}({{ member.years }}){% endif %}
+		</li>
+    {% endfor %}
+    </ul>
+	<div class="inline-svg" style="display:none">
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="width:100%;height:{%widthratio artist.membership_set.count 1 24%};">
+			{% for member in artist.membership_set.all %}
+				<text x="0" y="{%widthratio forloop.counter 1 24%}" font-family="Lucida Sans Unicode, Verdana" font-size="11" fill="black">{{ member.person.name }}</text>
+			{% endfor %}
+		</svg>
+	</div>
+		
+</section>
+{% endif %}
+
+<section class="clearfix" style="margin-bottom:18px;">
+<h2><strong>Албуми</strong> на {{ artist.name }}</h2>
+{% if artist.album_set.all %}
+    <ul class="album-list">
+    {% for album in artist.album_set.all %}
+		<li class="span2" itemprop="albums" itemscope itemtype="http://schema.org/MusicAlbum">
+			<a href="/albums/{{artist.slug}}/{{album.slug}}">
+				<img src="http://placekitten.com/105/105" />
+				<div class="info"><span itemprop="name">{{ album.title }}</span>
+				{% if album.released %}({{album.released}}){% endif %}</div>
+			</a>
+		</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Нямаме албуми на този изпълнител.</p>
+{% endif %}
+</section>
+
+<section>
+<h2><strong>Песни</strong> на {{ artist.name }}</h2>
+{% if artist.song_set.all %}
+    <ul>
+    {% for song in artist.song_set.all %}
+        <li itemprop="tracks" itemscope itemtype="http://schema.org/MusicRecording">
+			<a href="/songs/{{artist.slug}}/{{ song.slug }}">{{ song.title }}</a>
+		</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Нямаме текстове на този изпълнител.</p>
+{% endif %}
+</section>
+
+</article>
+	
+{% endblock %}

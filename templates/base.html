@@ -1,0 +1,37 @@
+<!doctype html>{% spaceless %}
+<html>
+<head>
+
+	<meta charset="utf-8" />
+	
+	{% if is_less %}
+		<link rel="stylesheet/less" type="text/css" href="{{ STATIC_URL }}less/style.less" />
+		<script type="text/javascript" src="{{ STATIC_URL }}js/less-1.3.0.min.js"></script>
+	{% else %}
+		<link rel=stylesheet type="text/css" href="{{ STATIC_URL }}css/bootstrap.css" />	
+		<link rel=stylesheet type="text/css" href="{{ STATIC_URL }}css/style.css" />
+	{% endif %}
+
+	<script type="text/javascript" src="{{ STATIC_URL }}js/modernizr-2.5.3.js"></script>
+	
+	<title>{% block title %}{% endblock %}</title>
+	
+	<meta name="google-site-verification" content="o8z14XdmNrui6cHVijKul8qUyDXD4mrror2UABUv81A" />
+	{% include "google-analytics.html" %}
+</head>
+
+{% endspaceless %}<body>
+
+<div class="container"><div id="clouds"></div></div>
+
+{% block base-content %}{% endblock %}
+
+{% include "breadcrumb.html" %}
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+{% extends "page-two-columns.html" %}
+{% load thumbnail comments event_calendar markup %}
+{% block title %}Предстоящи събития - концерти, фестивали, конкурси :: Джангър{% endblock %}
+
+{% block content %}
+<h1>{{ event.title }}</h1>
+<h2>{{ event.start }}{% if event.end %} &mdash; {{ event.end }}{% endif %}</h2>
+<p>{{ event.description|markdown }}</p>
+{% endblock %}
+
+{% block sidebar %}
+<h3>Ще присъстват <strong>{% for person in event.attending %}a{% endfor %}{{ event.attending }}</strong></h3>
+<h3>И може би още <strong>{{ event.attending_maybe }}</strong></h3>
+{% endblock %}

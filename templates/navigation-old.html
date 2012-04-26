@@ -1,0 +1,26 @@
+{%comment%}<nav class="navbar"><div class="navbar-inner" style=""><div class="container">
+
+<a href=/ class=brand style="font-family:Lucida Sans Unicode,sans-serif">НС((</a>
+
+<ul class="nav">
+	<li{% if nav_category == 'news' %} class=active{% endif %}><a href="/news">Новини</a></li>
+	<li{% if nav_category == 'events' %} class=active{% endif %}><a href="/events">Афиш</a></li>
+	<li{% if nav_category == 'chart' %} class=active{% endif %}><a href="/chart">Класация</a></li>
+	<li{% if nav_category == 'archive' %} class=active{% endif %}><a href="/archive">Архив</a></li>
+	<li{% if nav_category == 'catalog' %} class=active{% endif %}><a href="/catalog">Каталог</a></li>
+	<li{% if nav_category == 'classifieds' %} class=active{% endif %}><a href="/catalog">Обяви</a></li>
+</ul>
+
+<ul class="nav" style="float:right">
+{% if user.is_authenticated %}
+    <li><a href=#><i class="icon-envelope icon-white"></i></a></li>
+	<li><a href="/settings" style="padding-top:6px;padding-bottom:6px"><img src="{{ STATIC_URL }}img/cog_white.png"/></a></li>
+	<li><a href="/profile">Здравей, <strong>{{user.username}}</strong></a></li>
+	<li><a href=/logout>Изход</a></li>
+{% else %}
+	<li><a style="background:white;color:black;font-weight:bold" href=/register>Регистрация</a></li>
+	<li><a href=/login>Вход</a></li>
+{% endif %}
+</ul>
+
+</div></div></nav>{%endcomment%}

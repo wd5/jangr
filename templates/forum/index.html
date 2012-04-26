@@ -1,0 +1,52 @@
+{% extends "page-two-columns.html" %}
+{% load thumbnail comments event_calendar %}
+{% load url from future %}
+{% block title %}Форум за българска авторска музика :: Samodeus{% endblock %}
+
+{% block content %}
+
+{% for group in sections %}
+	<section class="forum-section-group">
+		<header>
+			<div class="row">
+				<div class="span8 offset2">
+					<h1>{{ group.name }}</h1>
+				</div>
+				<div class="span1"><img src="{{ STATIC_URL }}img/glyphicons_114_list.png" /></div>
+				<div class="span1"><img src="{{ STATIC_URL }}img/glyphicons_245_chat.png" /></div>
+			</div>
+		</header>
+		{% for section in group.forumsection_set.all %}
+		<article class="forum-section forum-section-no-new row">			
+			<div class="span1 new-posts-box">&nbsp; </div>
+			<a href={% url 'forum.views.section_index' section_id=section.id %}>
+				<header class="span9">
+					<h2>{{ section.name }}</h2>
+					<h3>{{ section.description }}</h3>
+				</header>
+			</a>
+			<div class="span1">{{ section.forumthread_set.count }}</div>
+			<div class="span1">{{ section.post_set.count }}</div>
+			<div class="preview-button">&raquo;</div>
+		</article>
+		{% endfor %}
+	</section>
+{% endfor %}
+
+	<section class="forum-thread">
+		<article class="forum-post row">
+			<div class="forum-post-avatar span3">
+				&nbsp;
+				<div class="forum-post-name">Потребителско име</div>
+			</div>
+			<div class="forum-post-text span8">&nbsp;</div>
+		</article>
+	</section>
+{% comment %}
+{% endcomment %}
+{% endblock %}
+
+{% block sidebar %}
+<h1>Текстописане и концепция</h1>
+265 съобщения в 42 теми
+{% endblock %}

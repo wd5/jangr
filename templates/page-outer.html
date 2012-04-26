@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block base-content %}
+
+<div class="container">
+	<div id="logo"></div>
+</div>
+
+<div class="container page">
+
+	{% block page %}{% endblock %}
+	{% block footer %}{% endblock %}
+
+</div> <!-- end main -->
+
+{% endblock %}

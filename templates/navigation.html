@@ -1,0 +1,21 @@
+<div class="container" style="padding:0 15px;">
+
+<div class="navbar-box">
+
+<div style="margin-left:-9px;">
+	<ul class="navbar-list">
+		<li{% if nav_category == 'news' %} class=active{% endif %}><h2><a href="/news">Новини</a></h2></li>
+		<li{% if nav_category == 'events' %} class=active{% endif %}><h2><a href="/events">Афиш</a></h2></li>
+		<li{% if nav_category == 'chart' %} class=active{% endif %}><h2><a href="/chart">Класация</a></h2></li>
+		<li{% if nav_category == 'archive' %} class=active{% endif %}><h2><a href="/archive">Архив</a></h2></li>
+		<li{% if nav_category == 'catalog' %} class=active{% endif %}><h2><a href="/catalog">Каталог</a></h2></li>
+		<li{% if nav_category == 'classifieds' %} class=active{% endif %}><h2><a href="/catalog">Обяви</a></h2></li>
+	</ul>
+</div>
+
+<div class="navbar-box-left"></div>
+<div class="navbar-box-right"></div>
+
+</div>
+
+</div>

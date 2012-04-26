@@ -1,0 +1,10 @@
+{% extends "page.html" %}
+{% block title %} {{ artist_details.name }} – {{ song_details.title }} ({{ media_details.title }}) {% endblock %}
+
+{% block page_content %}
+
+<h1>{{ artist_details.name }} &ndash; {{ song_details.title }}</h1>
+
+<h2>{{ media_details.title }}</h2>
+<section style="white-space:pre">{{media_details.text}}</section>
+{% endblock %}

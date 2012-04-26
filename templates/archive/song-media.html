@@ -1,0 +1,13 @@
+{% extends "page.html %}
+
+{% block page_content %}
+{% if media_list %}
+    <ul>
+    {% for media in media_list %}
+        <li><a href="/polls/{{ poll.id }}/">{{ media.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No media are available.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "page-outer.html" %}
+`
+{% block content %}
+<div class="row paper">
+
+<div class=span12>{% block page_content %}{% endblock %}</div>
+
+<div class=span4>{% block sidebar %}&nbsp;{% endblock %}</div>
+
+<div class="clear"></div>
+
+</div>
+{% endblock %}
