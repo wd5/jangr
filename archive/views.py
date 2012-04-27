@@ -8,6 +8,8 @@ from django.template import RequestContext
 from archive.models import Artist, Song, Person, Album
 import re
 
+from filetransfers.api import prepare_upload
+
 def index(request):
 	artist_list = Artist.objects.all()[:7]#Artist.objects.exclude(picture__exact=None).exclude(picture__exact="")[:7]
 	all_artists = Artist.objects.count()
@@ -70,28 +72,7 @@ def view_artist(request,artist):
 			'artist':artist_details
 		},
 		context_instance=RequestContext(request)
-	)
-
-	
-@login_required
-def add_artist(request):
-	return render_to_response(
-		'archive/artist-add.html',
-		{
-			'nav_category':'archive',
-		},
-		context_instance=RequestContext(request)
-	)
-
-	
-@login_required	
-def process_add_artist(request):
-	a = Artist(
-		name = request.POST['artist-name']
-	)
-	a.save()
-	return HttpResponseRedirect(reverse('archive.views.view_artist', args=(a.slug,)))
-
+)
 
 #	SONG
 	

@@ -7,13 +7,14 @@ threadsafe: yes
 builtins:
 - remote_api: on
 - django_wsgi: on
+- deferred: on
 
 inbound_services:
 - warmup
 
-libraries:
-- name: django
-  version: latest
+# libraries:
+# - name: django
+#   version: latest
 
 skip_files: |
   ^(.*/)?(

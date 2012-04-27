@@ -12,22 +12,18 @@ class AlbumTrackInline(admin.TabularInline):
 
 class SongAdmin(admin.ModelAdmin):
 	search_fields = ['title']
-	pass
 
 class PersonAdmin(admin.ModelAdmin):
 	list_display = ('name', 'born', 'died')
 	search_fields = ['name']
-	pass
 	
 class ArtistAdmin(admin.ModelAdmin):
 	list_display = ('name','years_active')
 	inlines = [MembershipInline,]
-	pass
 	
 class AlbumAdmin(admin.ModelAdmin):
 	list_display = ('title','released')
 	inlines = [AlbumTrackInline,]
-	pass
 	
 	
 admin.site.register(Song, SongAdmin)

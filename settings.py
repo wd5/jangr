@@ -1,13 +1,16 @@
+try:
+    from google.appengine.api import apiproxy_stub_map
+except ImportError:
+    from .boot import setup_env
+    setup_env()
+
+from djangoappengine.utils import on_production_server, have_appserver
+
+DEBUG = not on_production_server
+TEMPLATE_DEBUG = DEBUG
+
 import os
 import sys
-
-try:
-	DEBUG
-except NameError:
-	if sys.argv[0].endswith('manage.py'):
-		DEBUG = True
-	else:
-		DEBUG = False
 
 DATABASES = {
 	'default': {
@@ -28,6 +31,28 @@ MIDDLEWARE_CLASSES = (
 )
 
 SOUTH_DATABASE_ADAPTERS = { 'default' : 'south.db.mysql' }
+
+PREPARE_UPLOAD_BACKEND = 'djangoappengine.storage.prepare_upload'
+DEFAULT_FILE_STORAGE = 'djangoappengine.storage.BlobstoreStorage'
+FILE_UPLOAD_MAX_MEMORY_SIZE = 1024 * 1024
+FILE_UPLOAD_HANDLERS = (
+    'djangoappengine.storage.BlobstoreFileUploadHandler',
+    'django.core.files.uploadhandler.MemoryFileUploadHandler',
+)
+
+if on_production_server:
+    EMAIL_BACKEND = 'djangoappengine.mail.AsyncEmailBackend'
+else:
+    EMAIL_BACKEND = 'djangoappengine.mail.EmailBackend'
+
+"""CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'TIMEOUT': 0,
+    }
+}"""
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
 INSTALLED_APPS = (
 	'djangotoolbox',
@@ -52,7 +77,8 @@ INSTALLED_APPS = (
 	# 'tagging',
 	# 'easy_maps',
 	# 'feedjack', # feed aggregation
-	'filetransfers',
+	'filetransfers', # django-filetransfers
+	'autoslug',
 	
 	'util', # global utilities
 	'samodei', # homepage, global info (cities)
@@ -64,6 +90,9 @@ INSTALLED_APPS = (
 	'aggregator',
 	'catalog',
 	'forum',
+	'upload',
+
+	'djangoappengine'
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -87,7 +116,6 @@ TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates'),)
 
 ROOT_URLCONF = 'urls'
 
-
 MEDIA_ROOT = os.path.join(os.path.dirname(__file__), '_media')
 STATIC_ROOT = os.path.join(os.path.dirname(__file__), '_sitestatic')
 
@@ -95,12 +123,12 @@ STATICFILES_DIRS = (
 	os.path.join(os.path.dirname(__file__), '_static'),
 )
 
-if DEBUG: 
-	STATIC_URL = '/devstatic/'
-	MEDIA_URL = '/devmedia/'
-else:
-	STATIC_URL = '/static/'
-	MEDIA_URL = '/media/'
+#if DEBUG: 
+#	STATIC_URL = '/devstatic/'
+#	MEDIA_URL = '/devmedia/'
+#else:
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
 	
 COMMENTS_APP = 'mycomments'
 AUTH_PROFILE_MODULE = 'users.UserProfile'

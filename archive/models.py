@@ -3,6 +3,8 @@ from autoslug import AutoSlugField
 from util import *
 from django.db import models
 from genericm2m.models import RelatedObjectsDescriptor
+
+from patches.appengine import imagefield
 # from samodei.models import City
 
 AlbumSide_Choices = (
@@ -25,7 +27,8 @@ class Person (models.Model):
 	
 	info = models.TextField(blank=True)
 	#picture = models.ImageField(upload_to='archive/artists',null=True,blank=True)
-	picture = models.FileField(upload_to='archive/artists',null=True,blank=True)
+	#picture = imagefield.ImageField(upload_to='archive/artists')
+	picture = models.FileField(upload_to='archive/person',blank=True,null=True)
 	
 	def save(self):
 		if self.died == None:
@@ -51,7 +54,8 @@ class Artist (models.Model):
 	# city = models.CharField(max_length=20,default='София')
 	
 	description = models.TextField(blank=True)
-	picture = models.ImageField(upload_to='archive/artists',null=True,blank=True)
+	#picture = imagefield.ImageField(upload_to='archive/artists',null=True,blank=True)
+	picture = imagefield.ImageField(upload_to='archive/artist',blank=True,null=True)
 	members = models.ManyToManyField(Person,through='Membership',null=True)
 	
 	def __unicode__(self):
