@@ -1,0 +1,67 @@
+@commentMinHeight: 54px;
+@commentAvatarWidth: 54px;
+@commentBodyWidth: @contentWidth - (@commentAvatarWidth + 27px);
+@commentFormPadding: 3px;
+@commentButtonWidth: 36px;
+
+.comment {
+	border-radius:5px;
+	position: relative;
+	width: 100%;
+	margin-top:9px;
+	font-size:0;
+
+	&:hover { background: rgba(0,0,0,0.1); }
+}
+
+.comment-body {
+	display:inline-block;
+	vertical-align:top;
+	font-size: @baseFontSize;
+	min-height: @commentMinHeight;
+	width: @commentBodyWidth;
+}
+
+.comment-form {
+	.comment;
+
+	textarea {
+		display:inline-block;
+		vertical-align:top;
+		min-height: @commentMinHeight - @commentFormPadding*2;
+		width: @commentBodyWidth - (@commentFormPadding*2 + 9px + @commentButtonWidth);
+		margin:0 9px 0 0;
+		border:0;
+		padding:@commentFormPadding;
+		resize:vertical;
+		font:@baseFontSize @baseFontFamily;
+	}
+
+	&:hover { background: none; }
+}
+
+.comment-button {
+	width: @commentButtonWidth;
+	min-height: @commentMinHeight;
+	height: 100%;
+	display: inline-block;
+	vertical-align: top;
+	font-size: @baseFontSize;
+}
+
+.comment-avatar {
+	display:inline-block;
+	vertical-align:top;
+	width: @commentAvatarWidth;
+	height: @commentMinHeight;
+	background: black;
+	margin-right: 9px;
+}
+
+.comment-author {
+	font-weight: bold;
+}
+
+.comment-text {
+	margin-bottom: 9px;
+}

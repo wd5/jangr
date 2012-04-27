@@ -1,3 +1,5 @@
+@import "variables.less";
+
 @import "reset.less";
 @import "mixins.less";
 @import "base.less";
@@ -7,8 +9,8 @@
 @import "button-groups.less";
 @import "calendar.less";
 //@import "css-dropdowns.less";
+@import "comments.less";
 
-@import "variables.less";
 
 .container {
 	.clearfix;
@@ -44,14 +46,14 @@
 	display: inline;
 	float: left;
 	padding: 0 9px;
-	width:582px;
+	width:@contentWidth - 18;
 }
 
 .sidebar {
 	//.column(6);
 	display: inline;
 	float: left;
-	width: 354px;
+	width: @sidebarWidth - 18;
 	padding: 0 9px;
 	
 	.featured-list {
@@ -178,9 +180,28 @@
 }
 
 .topright-searchform {
+	/* Търсачка с разпльокан фон */
 	display:block;
 	padding:9px;
 	margin:-9px;
 	height:151px;
 	background-image:url('../img/search-splatter.png')
+}
+
+.date-display {
+	/* В списъка със събитията - датите над всеки ден */
+	text-transform: uppercase;
+	font-size: 14px;
+	letter-spacing: 1px;
+}
+
+.login-stone {
+	/*	Табела, излизаща на мястото на функциите, недостъпни за гости,
+		и подканяща ги да се регистрират.	*/
+
+	background: rgba(128,128,128,0.2);
+	padding: 18px;
+	text-align: center;
+	text-shadow: 0 1px 0 white;
+	color: @grayDark;
 }

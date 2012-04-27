@@ -52,6 +52,7 @@ INSTALLED_APPS = (
 	# 'tagging',
 	# 'easy_maps',
 	# 'feedjack', # feed aggregation
+	'filetransfers',
 	
 	'util', # global utilities
 	'samodei', # homepage, global info (cities)

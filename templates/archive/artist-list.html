@@ -1,6 +1,6 @@
-{% extends "page-inner.html" %}
+{% extends "page-two-columns.html" %}
 
-{% block page_content %}
+{% block content %}
 <header class="pageheader"><h1><a href="/archive">Архив</a> &raquo; <strong>Изпълнители</strong></h1></header>
 
 {% if artist_list %}
@@ -25,12 +25,13 @@
 	<p><a href="/artists/add"><i class="icon-plus-sign"></i> добави изпълнител</a></p>
 {% endblock %}
 
-{% block page_nav %}
+{% block sidebar %}
 <div class=row>
 	<form class=form-search>
 		<input type=text class="search-query span2" />
 		<input type=submit value="Търси" class="span1" />
 	</form>
-</div>{% endblock %}
+</div>
+{% endblock %}
 
 </div>

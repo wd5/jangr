@@ -9,7 +9,7 @@ from archive.models import Artist, Song, Person, Album
 import re
 
 def index(request):
-	artist_list = Artist.objects.exclude(picture__exact=None).exclude(picture__exact="")[:7]
+	artist_list = Artist.objects.all()[:7]#Artist.objects.exclude(picture__exact=None).exclude(picture__exact="")[:7]
 	all_artists = Artist.objects.count()
 	people_list = Person.objects.exclude(picture__exact=None)[:3]
 	all_people = Person.objects.count()
@@ -38,7 +38,7 @@ def artist_list(request):
 		artist.hasinfo = False
 		if (
 			len(artist.description) > 0 or
-			len(artist.song_set.all()) > 0 or
+			#len(artist.song_set.all()) > 0 or
 			len(artist.album_set.all()) > 0
 		):
 			artist.hasinfo = True

@@ -4,11 +4,12 @@
 {% block title %}Енциклопедия на българския рок {% endblock %}
 
 {% block content %}
-<header class="pageheader"><h1>Архив</h1></header>
+<h1>Българска рок енциклопедия</h1>
 
 <section>
 
 <header class="clearfix">
+	{% comment %}
 	<div style="float:right;">
 		<div class="btn-group" style="display: inline-block">
 			<a class="btn btn-round has-tooltip" title="Добави нов изпълнител" href="../artists/add"><i class="icon-plus"></i> Добави</a>
@@ -18,6 +19,7 @@
 			<a class="btn has-tooltip" href="/artists/" title="Виж списък на всички изпълнители"><i class="icon-list"></i> Виж всички</a>
 		</div>
 	</div>
+	{% endcomment %}
 	<a href="/artists/"><h2 style="display:inline">Изпълнители</h2></a>
 </header>
 
@@ -51,8 +53,7 @@
     {% endfor %}
     </ul>
 {% else %}
-    <p>Няма изпълнители в базата.</p>
-	<p>Егати!</p>
+    <p>Няма изпълнители в базата. Егати!</p>
 {% endif %}
 
 <!-- "more" button -->
@@ -90,8 +91,7 @@
 	</li>
 	{% endif %}
 {% empty %}
-	<p>Няма никого тук.</p>
-	<p>Егати!</p>
+	<p>Няма никого тук. Егати!</p>
 {% endfor %}
 </ul>
 	
@@ -100,6 +100,8 @@
 
 {% block sidebar %}
 <form class="topright-searchform"><input type=text class="search-query span3" /><input type=submit value="" class="span1" /></form>
+
+<p>Добре дошли в проекта "Българска рок енциклопедия" на Джангър! Тук ще откриете информация за стари и нови <a href=#>български групи</a>, кой кой е в <a href=#>българската авторска музика</a>, както и <a href=#>текстове и акорди на песни</a>.</p>
 {% endblock %}
 
 </div>

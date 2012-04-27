@@ -20,7 +20,7 @@ class PersonAdmin(admin.ModelAdmin):
 	pass
 	
 class ArtistAdmin(admin.ModelAdmin):
-	list_display = ('name','years_active','city')
+	list_display = ('name','years_active')
 	inlines = [MembershipInline,]
 	pass
 	

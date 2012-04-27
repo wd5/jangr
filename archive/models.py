@@ -3,6 +3,7 @@ from autoslug import AutoSlugField
 from util import *
 from django.db import models
 from genericm2m.models import RelatedObjectsDescriptor
+# from samodei.models import City
 
 AlbumSide_Choices = (
 	('A', u'Страна А'),
@@ -23,7 +24,8 @@ class Person (models.Model):
 	died = models.DateField(null=True,blank=True)
 	
 	info = models.TextField(blank=True)
-	picture = models.ImageField(upload_to='archive/artists',null=True,blank=True)
+	#picture = models.ImageField(upload_to='archive/artists',null=True,blank=True)
+	picture = models.FileField(upload_to='archive/artists',null=True,blank=True)
 	
 	def save(self):
 		if self.died == None:
@@ -46,7 +48,7 @@ class Artist (models.Model):
 	name = models.CharField(max_length=64)
 	slug = AutoSlugField(populate_from='name',slugify=unicode_slug)
 	years_active = models.CharField(max_length=48,blank=True)
-	city = models.CharField(max_length=20,default='София')
+	# city = models.CharField(max_length=20,default='София')
 	
 	description = models.TextField(blank=True)
 	picture = models.ImageField(upload_to='archive/artists',null=True,blank=True)
@@ -83,7 +85,7 @@ class Song (models.Model):
 	
 	title = models.CharField(max_length=64)
 	slug = AutoSlugField(populate_from='title', unique_with='original_artist', slugify=unicode_slug)
-	original_artist = models.ForeignKey(Artist)
+	original_artists = models.ManyToManyField(Artist)
 	
 	def __unicode__(self):
 		return unicode(self.title)
