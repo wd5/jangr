@@ -31,7 +31,7 @@ class Person (models.Model):
 	#picture = models.FileField(upload_to='archive/person',blank=True,null=True)
 	
 	def save(self):
-		if self.died == None:
+		if self.died == None and self.alive == None:
 			self.alive = True
 		else:
 			self.alive = False

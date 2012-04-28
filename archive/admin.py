@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from util import admin
 from archive.models import Artist, Song, Person, Album
 from django import forms
@@ -23,9 +24,25 @@ class PersonAdminForm(forms.ModelForm):
 		# self.fields['picture']=forms.CharField()
 
 class PersonAdmin(admin.ModelAdmin):
-	list_display = ('name', 'born', 'died')
-	search_fields = ['name']
+	list_display = ['person_infobox',]
+	search_fields = ['name',]
 	form = PersonAdminForm
+
+	def person_infobox(self,person):
+
+		if person.born and not person.died:
+			dates = u'р. ' + unicode(person.born)
+		elif person.born and person.died:
+			dates = unicode(person.born) + u"&mdash;" + unicode(person.died)
+		else:
+			dates = ""
+
+		return \
+			u"""<div style="width:36px;height:36px;background:black;float:left;margin-right:5px">&nbsp;</div>""" + \
+			unicode(person.name) + (u"" if person.alive else u"&dagger;") + u"<br />" + \
+			u'<div style="font-weight:normal;color:#777;box-shadow:0 1px 0 #fff">' + dates + u"</div>"
+	person_infobox.allow_tags=True
+
 	
 class ArtistAdmin(admin.ModelAdmin):
 	list_display = ('name','years_active')
