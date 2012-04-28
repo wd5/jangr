@@ -8,9 +8,12 @@ from filetransfers.api import serve_file
 from django.shortcuts import get_object_or_404
 
 from django.db.models import Model
+from django.core import files
 from archive.models import Artist, Song, Person
 from newsevents.models import Article, Event
 from documents.models import Document
+
+from google.appengine.api.images import get_serving_url
 
 def homepage(request):
 	if request.user.is_authenticated():
@@ -30,6 +33,8 @@ def homepage(request):
 		return render_to_response('prelaunch/prelaunch.html',{},context_instance=RequestContext(request))
 
 
-def download_handler(request, key, fieldname):
-	a = Person.objects.filter(pk=key)[0]
-	return serve_file(request, a.picture)
+def download_handler(request, filename):
+	return serve_file(request, files.File(name=filename))
+
+def redirect_to_serving_url(request, blobkey):
+	return HttpResponseRedirect(get_serving_url(blobkey))

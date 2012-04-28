@@ -4,21 +4,35 @@ except ImportError:
     from .boot import setup_env
     setup_env()
 
-from djangoappengine.utils import on_production_server, have_appserver
+import os
+import sys
+
+if (os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine')):
+	on_production_server = True
+else:
+	on_production_server = False
 
 DEBUG = not on_production_server
 TEMPLATE_DEBUG = DEBUG
 
-import os
-import sys
-
-DATABASES = {
-	'default': {
-		'ENGINE': 'google.appengine.ext.django.backends.rdbms',
-		'INSTANCE': 'jangr-db:jangr-db',
-		'NAME': 'jangr',
+if on_production_server:
+	DATABASES = {
+		'default': {
+			'ENGINE': 'google.appengine.ext.django.backends.rdbms',
+			'INSTANCE': 'jangr-db:jangr-db',
+			'NAME': 'jangr',
+		}
 	}
-}
+else:
+	DATABASES = {
+		'default': {
+			'ENGINE': 'django.db.backends.mysql',
+			'USER': 'jangr',
+			'PASSWORD': '2CRhs3YYrKQLfmDq',
+			'HOST': 'localhost',
+			'NAME': 'jangr',
+		}
+	}
 
 SECRET_KEY = '=r-$b*8hglm+858&9t043hlm6-&6-3d3vfc4((7yd0dbrakhvi'
 

@@ -47,11 +47,6 @@ class Article (models.Model):
 			}
 		)
 
-class EventAttendee(models.Model):
-	user = models.ForeignKey(User)
-	event = models.ForeignKey('Event')
-	certainty = models.BooleanField(default=False)
-		
 class Event (models.Model):
 	u'''Концерт или друго събитие'''
 	class Meta:
@@ -71,9 +66,6 @@ class Event (models.Model):
 	description = models.TextField(blank=True)
 	
 	location = models.ForeignKey(CatalogEntry,blank=True,null=True)
-
-	# attending = fields.ListField(editable=False)
-	# attending_maybe = fields.ListField(editable=False)
 	
 	def __unicode__(self):
 		return unicode(self.title)
