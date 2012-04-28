@@ -18,6 +18,7 @@ urlpatterns = patterns('',
 	url(r'^red/', include('editor.urls')),
 	url(r'^forum/', include('forum.urls')),
 	url(r'^upload-test/', include('upload.urls')),
+
 	
 	url(r'^admin/', include(admin.site.urls)),
 	

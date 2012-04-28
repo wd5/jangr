@@ -3,12 +3,15 @@ from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 import django.contrib.auth.views
-from util import rescale
 import csv
+from filetransfers.api import serve_file
+from django.shortcuts import get_object_or_404
 
+from django.db.models import Model
 from archive.models import Artist, Song, Person
 from newsevents.models import Article, Event
-	
+from documents.models import Document
+
 def homepage(request):
 	if request.user.is_authenticated():
 		artist_list = Artist.objects.exclude(picture=None)[:4]
@@ -25,6 +28,8 @@ def homepage(request):
 		
 	else:
 		return render_to_response('prelaunch/prelaunch.html',{},context_instance=RequestContext(request))
-	
-def view_image(request, path='none', width=-1, height=-1):
-	return rescale(path, width, height, force=True)
+
+
+def download_handler(request, key, fieldname):
+	a = Person.objects.filter(pk=key)[0]
+	return serve_file(request, a.picture)

@@ -327,11 +327,15 @@ class ClearableFileInput(FileInput):
         template = u'%(input)s'
         substitutions['input'] = super(ClearableFileInput, self).render(name, value, attrs)
 
-        if value and hasattr(value, "url"):
+        if value:
             template = self.template_with_initial
-            substitutions['initial'] = (u'<a href="%s">%s</a>'
-                                        % (escape(value.url),
-                                           escape(force_unicode(value))))
+            if hasattr(value, "url"):
+                substitutions['initial'] = (u'<a href="%s">%s</a>'
+                                            % (escape(value.url),
+                                               escape(force_unicode(value))))
+            else:
+                substitutions['initial'] = u'%s' % escape(value)
+
             if not self.is_required:
                 checkbox_name = self.clear_checkbox_name(name)
                 checkbox_id = self.clear_checkbox_id(checkbox_name)

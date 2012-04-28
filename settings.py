@@ -90,7 +90,7 @@ INSTALLED_APPS = (
 	'aggregator',
 	'catalog',
 	'forum',
-	'upload',
+	# 'upload',
 
 	'djangoappengine'
 )
