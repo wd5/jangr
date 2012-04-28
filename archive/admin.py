@@ -1,5 +1,6 @@
 from util import admin
 from archive.models import Artist, Song, Person, Album
+from django import forms
 
 	
 class MembershipInline(admin.TabularInline):
@@ -13,9 +14,18 @@ class AlbumTrackInline(admin.TabularInline):
 class SongAdmin(admin.ModelAdmin):
 	search_fields = ['title']
 
+class PersonAdminForm(forms.ModelForm):
+	class Meta:
+		model = Person
+
+	def __init__(self, *args, **kwargs):
+		super(PersonAdminForm, self).__init__(*args, **kwargs)
+		# self.fields['picture']=forms.CharField()
+
 class PersonAdmin(admin.ModelAdmin):
 	list_display = ('name', 'born', 'died')
 	search_fields = ['name']
+	form = PersonAdminForm
 	
 class ArtistAdmin(admin.ModelAdmin):
 	list_display = ('name','years_active')

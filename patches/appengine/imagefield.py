@@ -17,7 +17,7 @@ def image_bytes_are_valid(image_bytes):
 	return True
 
 
-class AppEngineImageFormField(forms.FileField):
+class WrappedImageFormField(forms.FileField):
 	default_error_messages = {
 		'invalid_image': _(u"Upload a valid image. The file you uploaded was either not an image or was a corrupted image."),
 	}
@@ -49,9 +49,9 @@ class AppEngineImageFormField(forms.FileField):
 		return raw_file
 		
 
-class ImageField(models.FileField):
+class WrappedImageField(models.FileField):
 
 	def formfield(self, **kwargs):
-		defaults = {'form_class': AppEngineImageFormField}
+		defaults = {'form_class': WrappedImageFormField}
 		defaults.update(kwargs)
-		return super(HandField, self).formfield(**defaults)
+		return super(WrappedImageField, self).formfield(**defaults)

@@ -16,6 +16,10 @@ inbound_services:
 # - name: django
 #   version: latest
 
+libraries:
+- name: PIL
+  version: latest
+
 skip_files: |
   ^(.*/)?(
   (app\.yaml)|

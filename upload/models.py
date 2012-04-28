@@ -6,4 +6,4 @@ class UploadModel(models.Model):
 
     @property
     def filename(self):
-        return self.file.name.rsplit('/', 1)[-1]
+        return self.file.name.rsplit('/', 1)

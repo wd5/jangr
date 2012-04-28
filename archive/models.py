@@ -26,9 +26,9 @@ class Person (models.Model):
 	died = models.DateField(null=True,blank=True)
 	
 	info = models.TextField(blank=True)
-	#picture = models.ImageField(upload_to='archive/artists',null=True,blank=True)
+	picture = models.ImageField(upload_to='',blank=True,null=True)
 	#picture = imagefield.ImageField(upload_to='archive/artists')
-	picture = models.FileField(upload_to='archive/person',blank=True,null=True)
+	#picture = models.FileField(upload_to='archive/person',blank=True,null=True)
 	
 	def save(self):
 		if self.died == None:
@@ -55,7 +55,8 @@ class Artist (models.Model):
 	
 	description = models.TextField(blank=True)
 	#picture = imagefield.ImageField(upload_to='archive/artists',null=True,blank=True)
-	picture = imagefield.ImageField(upload_to='archive/artist',blank=True,null=True)
+	#picture = imagefield.ImageField(upload_to='archive/artist',blank=True,null=True)
+	picture = models.ImageField(upload_to='',blank=True,null=True)
 	members = models.ManyToManyField(Person,through='Membership',null=True)
 	
 	def __unicode__(self):

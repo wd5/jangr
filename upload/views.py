@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.views.generic.simple import direct_to_template
 
@@ -7,6 +7,13 @@ from upload.forms import UploadForm
 from upload.models import UploadModel
 
 from filetransfers.api import prepare_upload, serve_file
+
+def test(request):
+    from djangoappengine import storage
+    s = storage.BlobstoreStorage()
+    a = s.open("lolfile","ab")
+    a.write("adfasdf")
+    return HttpResponse(unicode(a))
 
 def upload_handler(request):
     view_url = reverse('upload.views.upload_handler')
