@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -56,7 +56,7 @@ def artist_list(request):
 	)
 
 	
-def view_artist(request,artist):
+def artist(request,artist):
 	artist_details = Artist.objects.filter(slug=artist)[0]
 	p = re.compile('''\[(.*?)\]''',flags=re.M)
 	artist_details.description = p.sub('<a href="\g<1>">\g<1></a>',artist_details.description)
@@ -77,9 +77,13 @@ def view_artist(request,artist):
 #	SONG
 	
 	
-def view_song(request,artist,song):
-	song_info = Song.objects.filter(slug=song)[0]
-	artist_info = Artist.objects.filter(slug=artist)[0]
+def song(request,artist,song):
+	try:
+		song_info = Song.objects.filter(slug=song)[0]
+		artist_info = Artist.objects.filter(slug=artist)[0]
+	except IndexError:
+		raise Http404
+
 	return render_to_response(
 		'archive/song-view.html',
 		{
@@ -94,7 +98,7 @@ def view_song(request,artist,song):
 
 #	ALBUM
 
-def view_album(request,artist,album):
+def album(request,artist,album):
 	album_info = Album.objects.filter(slug=album)[0]
 	artist_info = Artist.objects.filter(slug=artist)[0]
 	return render_to_response(
@@ -104,6 +108,21 @@ def view_album(request,artist,album):
 			
 			'album':album_info,
 			'artist':artist_info,
+		},
+		context_instance=RequestContext(request)
+	)
+
+
+#	Person
+
+def person(request,name):
+	person = Person.objects.filter(slug=name)[0]
+	return render_to_response(
+		'archive/album-view.html',
+		{
+			'nav_category':'archive',
+			
+			'person':'person',
 		},
 		context_instance=RequestContext(request)
 	)

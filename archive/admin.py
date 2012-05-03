@@ -2,7 +2,7 @@
 from util import admin
 from archive.models import Artist, Song, Person, Album
 from django import forms
-
+from django.template.loader import render_to_string
 	
 class MembershipInline(admin.TabularInline):
 	model = Artist.members.through
@@ -37,10 +37,8 @@ class PersonAdmin(admin.ModelAdmin):
 		else:
 			dates = ""
 
-		return \
-			u"""<div style="width:36px;height:36px;background:black;float:left;margin-right:5px">&nbsp;</div>""" + \
-			unicode(person.name) + (u"" if person.alive else u"&dagger;") + u"<br />" + \
-			u'<div style="font-weight:normal;color:#777;box-shadow:0 1px 0 #fff">' + dates + u"</div>"
+		return render_to_string("archive/admin-person-extra.html",{'name':person.name,'alive':person.alive,'dates':dates})
+
 	person_infobox.allow_tags=True
 
 	

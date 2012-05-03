@@ -16,14 +16,14 @@
 	.clearfix;
 	width: @totalWidth;
 	margin: 0 auto;
-	//padding-left: 9px;
-	//padding-right: 9px;
+	//padding-left: @padding;
+	//padding-right: @padding;
 	overflow: hidden;
 }
 
 .page {
-	padding-top: 9px;
-	padding-bottom: 9px;
+	padding-top: @padding;
+	padding-bottom: @padding;
 	background-color:@pageBackgroundColor;
 	background-image:@pageBackgroundImage;
 }
@@ -45,7 +45,7 @@
 	//width: 600px;
 	display: inline;
 	float: left;
-	padding: 0 9px;
+	padding: 0 @padding;
 	width:@contentWidth - 18;
 }
 
@@ -54,21 +54,21 @@
 	display: inline;
 	float: left;
 	width: @sidebarWidth - 18;
-	padding: 0 9px;
+	padding: 0 @padding;
 	
 	.featured-list {
 		list-style: none;
-		margin-bottom: 9px;
+		margin-bottom: @padding;
 		li {
 			//.row(6);
 			.clearfix();
 			display: block;
-			margin-top: 9px;
+			margin-top: @padding;
 			
 			hgroup {
 				display: inline;
 				float: left;
-				width: 219px;
+				width: 21@padding;
 			}
 			
 			.icons {
@@ -151,7 +151,7 @@
 .sidebox {
 	.column(1);
 	height:54px;
-	margin-bottom: 9px;
+	margin-bottom: @padding;
 	background: #821;
 	text-align: center;
 	color: white;
@@ -182,18 +182,22 @@
 .topright-searchform {
 	/* Търсачка с разпльокан фон */
 	display:block;
-	padding:9px;
-	margin:-9px;
+	padding:@padding;
+	margin:-@padding;
 	height:151px;
 	background-image:url('../img/search-splatter.png')
 }
 
-.gray-heading, .date-display {
-	/* В списъка със събитията - датите над всеки ден */
+.gray-heading {
 	color: @grayMedium;
 	text-transform: uppercase;
 	font-size: 14px;
 	letter-spacing: 1px;
+}
+
+.date-display {
+	/* В списъка със събитията - датите над всеки ден */
+	.gray-heading;
 }
 
 .login-stone {
@@ -205,4 +209,76 @@
 	text-align: center;
 	text-shadow: 0 1px 0 white;
 	color: @grayDark;
+}
+
+ul.socialaccount_providers {
+	list-style:none;
+	display:block;
+
+	li {
+		display:inline-block;
+
+		a {
+			width:72px;
+			height:54px;
+			background:white;
+			margin-right:@padding;
+			box-shadow: 2px 2px 1px @grayDark;
+			display: block;
+		}
+	}
+}
+
+ul.comma-list {
+	display: inline;
+	list-style: none;
+	margin: inherit;
+	
+	li {
+		display: inline;
+		&:after { display: inline; content: ', '; }
+		&:last-child:after { display: inline; content: ''; }
+	}
+}
+
+ul.dot-list {
+	display: block;
+	list-style: none;
+	margin: inherit;
+	margin-bottom: 18px;
+	text-align: center;	
+	li {
+		.gray-heading;
+		font-family: @headingsFontFamily;
+		//font-size: @baseFontSize;
+		display: inline;
+		&:after { display: inline; content: ' \00B7 '; }
+		&:last-child:after { display: inline; content: ''; }
+	}
+}
+
+ul.thumb-list {
+	list-style:none;
+	.clearfix;
+	margin: 0 -@padding;
+	font-size:0;
+	li {
+		font-size: @baseFontSize;
+		display:inline-block;
+		width:(@contentWidth/3)-@padding;
+		padding-left: @padding;
+	}
+}
+
+ul.album-list {
+	list-style:none;
+	margin-left:-@padding;
+	li {
+		display: block;
+		vertical-align:top;
+		height: 36px;
+		margin: 0 @padding;
+		padding: 4px 0 5px;
+		img { height: 100%; float: left; margin-right: @padding; }
+	}
 }

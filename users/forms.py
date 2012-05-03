@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from django import forms
+"""from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
@@ -23,4 +23,13 @@ class RegistrationForm(UserCreationForm	):
     
 	def clean(self, *args, **kwargs):
 		self.clean_password1()
-		return super(UserCreationForm, self).clean(*args, **kwargs)
+		return super(UserCreationForm, self).clean(*args, **kwargs)"""
+
+
+from django import forms
+from django.contrib.auth.models import User
+
+class SignupForm(forms.Form):
+
+	def save(self,user):
+		pass

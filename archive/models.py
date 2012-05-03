@@ -90,8 +90,8 @@ class Song (models.Model):
 	related = RelatedObjectsDescriptor()
 	
 	title = models.CharField(max_length=64)
-	slug = AutoSlugField(populate_from='title', unique_with='original_artist', slugify=unicode_slug)
-	original_artists = models.ManyToManyField(Artist)
+	original_artists = models.ManyToManyField('Artist')
+	slug = AutoSlugField(populate_from='title', slugify=unicode_slug)
 	
 	def __unicode__(self):
 		return unicode(self.title)

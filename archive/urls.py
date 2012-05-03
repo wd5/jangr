@@ -2,10 +2,11 @@
 from django.conf.urls.defaults import patterns, include, url
 
 urlpatterns = patterns('archive.views',
-	url(r'^archive/$', 'index'),
-	url(r'^artists/$', 'artist_list'),
+	url(r'^$', 'index'),
+	url(r'^artists/$', 'artist_list', {}, 'artist-list'),
 
-	url(r'^songs/(?P<artist>.+)/(?P<song>.+)/$', 'view_song'),
-	url(r'^albums/(?P<artist>.+)/(?P<album>.+)/$', 'view_album'),
-	url(r'^artists/(?P<artist>.+)/$', 'view_artist'),	
+	url(r'^songs/(?P<artist>.+)/(?P<song>.+)/$', 'song', {}, 'view-song'),
+	url(r'^albums/(?P<artist>.+)/(?P<album>.+)/$', 'album', {}, 'view-album'),
+	url(r'^artists/(?P<artist>.+)/$', 'artist', {}, 'view-artist'),
+	url(r'^people/(?P<name>.+)/$', 'person', {}, 'view-person'),
 )
