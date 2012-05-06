@@ -1,6 +1,8 @@
 {% extends "page-outer.html" %}
 
 {% block page %}
-<div class="content">{% block content %}{% endblock %}</div>
-<div class="sidebar">{% block sidebar %}{% endblock %}</div>
+<div class="content">
+	<div class="sidebar">{% block sidebar %}{% endblock %}</div>
+	<div class="main">{% block content %}{% endblock %}</div>
+</div>
 {% endblock %}

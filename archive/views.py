@@ -11,7 +11,7 @@ import re
 from filetransfers.api import prepare_upload
 
 def index(request):
-	artist_list = Artist.objects.all()[:7]#Artist.objects.exclude(picture__exact=None).exclude(picture__exact="")[:7]
+	artist_list = Artist.objects.all()[:4]#Artist.objects.exclude(picture__exact=None).exclude(picture__exact="")[:7]
 	all_artists = Artist.objects.count()
 	people_list = Person.objects.exclude(picture__exact=None)[:3]
 	all_people = Person.objects.count()

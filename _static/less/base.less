@@ -10,7 +10,7 @@ body {
 	line-height: @baseLineHeight;
 	color: @textColor;
 	background-color: @bodyBackgroundColor;
-	background-image: @bodyBackgroundImage;
+	//background-image: @bodyBackgroundImage;
 }
 
 html { overflow-y: scroll }
@@ -37,4 +37,88 @@ p > a:hover { .extbg; }
 
 section {
 	margin-bottom: @baseLineHeight;
+
+	&>h2 {
+		text-align:center;
+		margin-bottom:@u;
+		background-image:url('../img/line.png');
+		background-repeat:repeat-x;
+		background-position:center;
+
+		&>span {
+			.gray-heading;
+			background-color:@pageBackgroundColor;
+			background-image:@pageBackgroundImage;
+			border-radius:2*@u;
+			padding:0 @u;
+		}
+	}
+}
+
+.container {
+	.clearfix;
+	width: @totalWidth;
+	margin: 0 auto;
+	//padding-left: @u;
+	//padding-right: @u;
+	overflow: hidden;
+	text-shadow:0 1px 0 white;
+}
+
+.page {
+	background-color:@pageBackgroundColor;
+	background-image:@pageBackgroundImage;
+}
+
+.content {
+	position:relative;
+	padding: 0 @padding 2*@u;
+	width:@contentWidth;
+	box-shadow: 0 5px 10px #999;
+	.main {
+		padding-top: 2*@u;
+	}
+}
+
+.sidebar {
+	position:absolute;
+	top:0;
+	right:-(@sidebarWidth+2*@padding);
+
+	width: @sidebarWidth;
+	height: 100%;
+
+	padding: 2*@u @padding;
+
+	background: rgba(0,0,0,0.05);
+	background: -moz-linear-gradient(left, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.0) 38%, rgba(0,0,0,0) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,0,0,0.1)), color-stop(38%,rgba(0,0,0,0.0)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left, rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.0) 38%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left, rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.0) 38%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left, rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.0) 38%,rgba(0,0,0,0) 100%); /* IE10+ */
+	background: linear-gradient(left, rgba(0,0,0,0.1) 0%,rgba(0,0,0,0.0) 38%,rgba(0,0,0,0) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */
+
+	.featured-list {
+		list-style: none;
+		margin-bottom: @u;
+		li {
+			//.row(6);
+			.clearfix();
+			display: block;
+			margin-top: @u;
+			
+			hgroup {
+				display: inline;
+				float: left;
+				width: 21@u;
+			}
+			
+			.icons {
+				display: inline;
+				float: left;
+				width: 135px;				
+			}
+		}
+	}
 }

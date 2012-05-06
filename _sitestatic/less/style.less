@@ -1,4 +1,5 @@
 @import "variables.less";
+@import "fonts.less";
 
 @import "reset.less";
 @import "mixins.less";
@@ -10,75 +11,6 @@
 @import "calendar.less";
 //@import "css-dropdowns.less";
 @import "comments.less";
-
-
-.container {
-	.clearfix;
-	width: @totalWidth;
-	margin: 0 auto;
-	//padding-left: @padding;
-	//padding-right: @padding;
-	overflow: hidden;
-}
-
-.page {
-	padding-top: @padding;
-	padding-bottom: @padding;
-	background-color:@pageBackgroundColor;
-	background-image:@pageBackgroundImage;
-}
-
-.homepage-section {
-	.clearfix;
-}
-
-.homepage-section > .main  {
-	.column(12);
-}
-
-.homepage-section > .side  {
-	.column(6);
-}
-
-.content {
-	//.column(12);
-	//width: 600px;
-	display: inline;
-	float: left;
-	padding: 0 @padding;
-	width:@contentWidth - 18;
-}
-
-.sidebar {
-	//.column(6);
-	display: inline;
-	float: left;
-	width: @sidebarWidth - 18;
-	padding: 0 @padding;
-	
-	.featured-list {
-		list-style: none;
-		margin-bottom: @padding;
-		li {
-			//.row(6);
-			.clearfix();
-			display: block;
-			margin-top: @padding;
-			
-			hgroup {
-				display: inline;
-				float: left;
-				width: 21@padding;
-			}
-			
-			.icons {
-				display: inline;
-				float: left;
-				width: 135px;				
-			}
-		}
-	}
-}
 
 .icon {
 	float:left;
@@ -151,7 +83,7 @@
 .sidebox {
 	.column(1);
 	height:54px;
-	margin-bottom: @padding;
+	margin-bottom: @u;
 	background: #821;
 	text-align: center;
 	color: white;
@@ -182,10 +114,10 @@
 .topright-searchform {
 	/* Търсачка с разпльокан фон */
 	display:block;
-	padding:@padding;
-	margin:-@padding;
-	height:151px;
-	background-image:url('../img/search-splatter.png')
+	padding:2*@u;
+	//margin:-2*@u -2*@u 2*@u;
+	//height:142px;
+	//background-image:url('../img/search-splatter.png')
 }
 
 .gray-heading {
@@ -222,7 +154,7 @@ ul.socialaccount_providers {
 			width:72px;
 			height:54px;
 			background:white;
-			margin-right:@padding;
+			margin-right:@u;
 			box-shadow: 2px 2px 1px @grayDark;
 			display: block;
 		}
@@ -260,25 +192,26 @@ ul.dot-list {
 ul.thumb-list {
 	list-style:none;
 	.clearfix;
-	margin: 0 -@padding;
+	margin: 0 -3*@u;
 	font-size:0;
 	li {
 		font-size: @baseFontSize;
 		display:inline-block;
-		width:(@contentWidth/3)-@padding;
-		padding-left: @padding;
+		width:(@contentWidth/4)-3*@u;
+		padding-left: 3*@u;
+		margin-bottom: 2*@u;
 	}
 }
 
 ul.album-list {
 	list-style:none;
-	margin-left:-@padding;
+	margin-left:-@u;
 	li {
 		display: block;
 		vertical-align:top;
 		height: 36px;
-		margin: 0 @padding;
+		margin: 0 @u;
 		padding: 4px 0 5px;
-		img { height: 100%; float: left; margin-right: @padding; }
+		img { height: 100%; float: left; margin-right: @u; }
 	}
 }
