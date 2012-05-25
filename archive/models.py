@@ -5,21 +5,32 @@ from django.db import models
 from genericm2m.models import RelatedObjectsDescriptor
 
 from patches.appengine import imagefield
-# from samodei.models import City
+# from jangr.models import City
 
 AlbumSide_Choices = (
 	('A', u'Страна А'),
 	('B', u'Страна Б'),
 )
 
-class Person (models.Model):
+class TopArticle (models.Model):
+	article = models.ForeignKey('Article')
+
+
+class Article (models.Model):
+	u'''Базов клас, от който наследяват всички останали в архива.'''
+	title = models.CharField(max_length=64)
+	slug = AutoSlugField(populate_from='title',slugify=unicode_slug,unique_with='category')
+	category = models.CharField(max_length=64)
+
+	def __unicode__(self):
+		return unicode(self.title)
+
+
+class Person (Article):
 	u'''Информация за лице - музикант, текстописец и т.н.'''
 	class Meta:
 		verbose_name = u'лице'
 		verbose_name_plural = u'лица'
-	
-	name = models.CharField(max_length=64)
-	slug = AutoSlugField(populate_from='name',slugify=unicode_slug)
 	
 	alive = models.NullBooleanField(null=True,blank=True)
 	born = models.DateField(null=True,blank=True)
@@ -43,14 +54,12 @@ class Person (models.Model):
 		return unicode(self.name)
 	
 		
-class Artist (models.Model):
+class Artist (Article):
 	u'''Информация за изпълнител или група'''
 	class Meta:
 		verbose_name = u'група'
 		verbose_name_plural = u'групи'
-	
-	name = models.CharField(max_length=64)
-	slug = AutoSlugField(populate_from='name',slugify=unicode_slug)
+
 	years_active = models.CharField(max_length=48,blank=True)
 	# city = models.CharField(max_length=20,default='София')
 	
@@ -81,31 +90,24 @@ class Membership (models.Model):
 		return unicode(self.group.name)
 		
 		
-class Song (models.Model):
+class Song (Article):
 	u'''Информация за музикална композиция (песен)'''
 	class Meta:
 		verbose_name = u'парче'
 		verbose_name_plural = u'парчета'
-		
-	related = RelatedObjectsDescriptor()
-	
-	title = models.CharField(max_length=64)
+
 	original_artists = models.ManyToManyField('Artist')
-	slug = AutoSlugField(populate_from='title', slugify=unicode_slug)
 	
 	def __unicode__(self):
 		return unicode(self.title)
 
 		
-class Album (models.Model):
+class Album (Article):
 	u'''Музикален албум'''
 	
 	class Meta:
 		verbose_name = u'албум'
 		verbose_name_plural = u'албуми'
-		
-	title = models.CharField(max_length=100)
-	slug = AutoSlugField(populate_from='title',slugify=unicode_slug)
 	
 	artists = models.ManyToManyField(Artist)
 	tracks = models.ManyToManyField(Song,through='AlbumTrack',blank=True)

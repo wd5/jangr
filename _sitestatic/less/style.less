@@ -62,19 +62,6 @@
 	.transition(none);
 }
 
-#clouds {
-	background-image: url('../img/grunge-wide.png');
-	background-attachment:fixed;
-	background-position: center 0;
-	background-repeat: no-repeat;
-	
-	position:absolute;
-	top:0; left:0; right:0;
-	height:400px;
-	z-index:-10;
-}
-
-
 .news-article, .events-article {
 	.row(12);
 	margin-bottom:18px;
@@ -118,13 +105,6 @@
 	//margin:-2*@u -2*@u 2*@u;
 	//height:142px;
 	//background-image:url('../img/search-splatter.png')
-}
-
-.gray-heading {
-	color: @grayMedium;
-	text-transform: uppercase;
-	font-size: 14px;
-	letter-spacing: 1px;
 }
 
 .date-display {
@@ -186,20 +166,28 @@ ul.dot-list {
 		display: inline;
 		&:after { display: inline; content: ' \00B7 '; }
 		&:last-child:after { display: inline; content: ''; }
+
+		&>a { .extbg; }
 	}
 }
 
 ul.thumb-list {
 	list-style:none;
 	.clearfix;
-	margin: 0 -3*@u;
+	//margin: 0 0 0 -@padding;
 	font-size:0;
 	li {
 		font-size: @baseFontSize;
 		display:inline-block;
-		width:(@contentWidth/4)-3*@u;
-		padding-left: 3*@u;
+		width:(@contentWidth/4)-@padding;
+		padding: 0 @padding/2;
 		margin-bottom: 2*@u;
+
+		&>a {
+			display:block;
+			.extbg;
+			.transition(none);
+		}
 	}
 }
 
@@ -209,9 +197,44 @@ ul.album-list {
 	li {
 		display: block;
 		vertical-align:top;
-		height: 36px;
+		height: 2*@baseLineHeight;
 		margin: 0 @u;
 		padding: 4px 0 5px;
 		img { height: 100%; float: left; margin-right: @u; }
+		.info > span { line-height:2*@baseLineHeight; font-size: 18px; font-family:@headingsFontFamily; }
+	}
+}
+
+.letter-heading { display:inline-block; font-size: 24px; width: 24px; vertical-align: middle; margin-bottom: @u; }
+
+.article-gallery {
+	.clearfix;
+	position: relative;
+	.viewer {
+		float:left;
+		width: 100%;
+		height: 252px;
+	}
+	ul.menu {
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 92px;
+		height: 252px;
+		&> li > a {
+			display: block;
+			padding: @u;
+			height: 63px - 2*@u;
+			color: white;
+			text-align: center;
+			text-shadow: 0 1px 0 @grayDark,0 1px 2px @grayDark;
+			&:hover {
+				background:rgba(255,255,255,0.2);
+			}
+			img {
+				display: inline;
+				line-height:30px;
+			}
+		}
 	}
 }

@@ -15,8 +15,8 @@
 @linkColor: #a21;
 @linkColorHover: #f42;
 
-@pageBackgroundImage: url('../img/paper4.png');
-@pageBackgroundColor: @grayMedium;
+@pageBackgroundImage: url('../img/noise.png');
+@pageBackgroundColor: #e8e8e8;
 
 @bodyBackgroundColor: @pageBackgroundColor;
 @bodyBackgroundImage: @pageBackgroundImage;
@@ -24,7 +24,7 @@
 @baseFontFamily: 'Open Sans',Verdana,Arial,sans-serif;
 @baseFontSize: 12px;
 @baseLineHeight: 18px;
-@padding: @baseLineHeight/2;
+@padding: 30px;
 @u: 9px;
 
 @headingsFontFamily: Georgia, serif;
@@ -37,6 +37,6 @@
 
 @hrBorder: @grayLight;
 
-@totalWidth: 972px;
-@contentWidth: @totalWidth / 1.62;
-@sidebarWidth: @totalWidth - @contentWidth;
+@contentWidth: 540px;
+@sidebarWidth: 320px;
+@totalWidth: @contentWidth + @sidebarWidth + @padding*4;

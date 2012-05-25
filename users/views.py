@@ -28,7 +28,7 @@ def login(request, *args, **kwargs):
 		
 def logout(request, *args, **kwargs):
 	django.contrib.auth.views.logout(request)
-	return HttpResponseRedirect(reverse('samodei.views.homepage'))
+	return HttpResponseRedirect(reverse('jangr.views.homepage'))
 	
 	
 def register(request, *args, **kwargs):

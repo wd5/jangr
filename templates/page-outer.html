@@ -8,8 +8,13 @@
 
 <div class="container page">
 
+	<div style="position:fixed;width:980px;height:54px;background:white;z-index:1000;">
+	<div style="position:absolute;bottom:-9px;height:9px;left:0;right:0;background:url('{{ STATIC_URL }}img/zigzag-9px.png');"></div>
+	</div>
+	<div style="margin-top:54px">
 	{% block page %}{% endblock %}
 	{% block footer %}{% endblock %}
+	</div>
 
 </div> <!-- end main -->
 

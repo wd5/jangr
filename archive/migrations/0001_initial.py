@@ -8,11 +8,25 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         
+        # Adding model 'TopArticle'
+        db.create_table('archive_toparticle', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('article', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['archive.Article'])),
+        ))
+        db.send_create_signal('archive', ['TopArticle'])
+
+        # Adding model 'Article'
+        db.create_table('archive_article', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('title', self.gf('django.db.models.fields.CharField')(max_length=64)),
+            ('slug', self.gf('autoslug.fields.AutoSlugField')(unique_with=(), max_length=50, populate_from=None, db_index=True)),
+            ('category', self.gf('django.db.models.fields.CharField')(max_length=64)),
+        ))
+        db.send_create_signal('archive', ['Article'])
+
         # Adding model 'Person'
         db.create_table('archive_person', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=64)),
-            ('slug', self.gf('autoslug.fields.AutoSlugField')(unique_with=(), max_length=50, populate_from=None, db_index=True)),
+            ('article_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['archive.Article'], unique=True, primary_key=True)),
             ('alive', self.gf('django.db.models.fields.NullBooleanField')(null=True, blank=True)),
             ('born', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
             ('died', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
@@ -23,11 +37,8 @@ class Migration(SchemaMigration):
 
         # Adding model 'Artist'
         db.create_table('archive_artist', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=64)),
-            ('slug', self.gf('autoslug.fields.AutoSlugField')(unique_with=(), max_length=50, populate_from=None, db_index=True)),
+            ('article_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['archive.Article'], unique=True, primary_key=True)),
             ('years_active', self.gf('django.db.models.fields.CharField')(max_length=48, blank=True)),
-            ('city', self.gf('django.db.models.fields.CharField')(default='\xd0\xa1\xd0\xbe\xd1\x84\xd0\xb8\xd1\x8f', max_length=20)),
             ('description', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('picture', self.gf('django.db.models.fields.files.ImageField')(max_length=100, null=True, blank=True)),
         ))
@@ -46,18 +57,21 @@ class Migration(SchemaMigration):
 
         # Adding model 'Song'
         db.create_table('archive_song', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=64)),
-            ('slug', self.gf('autoslug.fields.AutoSlugField')(unique_with=(), max_length=50, populate_from=None, db_index=True)),
-            ('original_artist', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['archive.Artist'])),
+            ('article_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['archive.Article'], unique=True, primary_key=True)),
         ))
         db.send_create_signal('archive', ['Song'])
 
+        # Adding M2M table for field original_artists on 'Song'
+        db.create_table('archive_song_original_artists', (
+            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
+            ('song', models.ForeignKey(orm['archive.song'], null=False)),
+            ('artist', models.ForeignKey(orm['archive.artist'], null=False))
+        ))
+        db.create_unique('archive_song_original_artists', ['song_id', 'artist_id'])
+
         # Adding model 'Album'
         db.create_table('archive_album', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('title', self.gf('django.db.models.fields.CharField')(max_length=100)),
-            ('slug', self.gf('autoslug.fields.AutoSlugField')(unique_with=(), max_length=50, populate_from=None, db_index=True)),
+            ('article_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['archive.Article'], unique=True, primary_key=True)),
             ('released', self.gf('django.db.models.fields.DateField')(null=True, blank=True)),
             ('publisher', self.gf('django.db.models.fields.CharField')(max_length=20, blank=True)),
         ))
@@ -84,6 +98,12 @@ class Migration(SchemaMigration):
 
     def backwards(self, orm):
         
+        # Deleting model 'TopArticle'
+        db.delete_table('archive_toparticle')
+
+        # Deleting model 'Article'
+        db.delete_table('archive_article')
+
         # Deleting model 'Person'
         db.delete_table('archive_person')
 
@@ -95,6 +115,9 @@ class Migration(SchemaMigration):
 
         # Deleting model 'Song'
         db.delete_table('archive_song')
+
+        # Removing M2M table for field original_artists on 'Song'
+        db.delete_table('archive_song_original_artists')
 
         # Deleting model 'Album'
         db.delete_table('archive_album')
@@ -108,13 +131,11 @@ class Migration(SchemaMigration):
 
     models = {
         'archive.album': {
-            'Meta': {'object_name': 'Album'},
+            'Meta': {'object_name': 'Album', '_ormbases': ['archive.Article']},
+            'article_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['archive.Article']", 'unique': 'True', 'primary_key': 'True'}),
             'artists': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['archive.Artist']", 'symmetrical': 'False'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'publisher': ('django.db.models.fields.CharField', [], {'max_length': '20', 'blank': 'True'}),
             'released': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            'slug': ('autoslug.fields.AutoSlugField', [], {'unique_with': '()', 'max_length': '50', 'populate_from': 'None', 'db_index': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'tracks': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['archive.Song']", 'symmetrical': 'False', 'through': "orm['archive.AlbumTrack']", 'blank': 'True'})
         },
         'archive.albumtrack': {
@@ -125,15 +146,19 @@ class Migration(SchemaMigration):
             'side': ('django.db.models.fields.CharField', [], {'max_length': '1', 'blank': 'True'}),
             'song': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['archive.Song']"})
         },
-        'archive.artist': {
-            'Meta': {'object_name': 'Artist'},
-            'city': ('django.db.models.fields.CharField', [], {'default': "'\\xd0\\xa1\\xd0\\xbe\\xd1\\x84\\xd0\\xb8\\xd1\\x8f'", 'max_length': '20'}),
-            'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+        'archive.article': {
+            'Meta': {'object_name': 'Article'},
+            'category': ('django.db.models.fields.CharField', [], {'max_length': '64'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'members': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['archive.Person']", 'null': 'True', 'through': "orm['archive.Membership']", 'symmetrical': 'False'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '64'}),
-            'picture': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'slug': ('autoslug.fields.AutoSlugField', [], {'unique_with': '()', 'max_length': '50', 'populate_from': 'None', 'db_index': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '64'})
+        },
+        'archive.artist': {
+            'Meta': {'object_name': 'Artist', '_ormbases': ['archive.Article']},
+            'article_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['archive.Article']", 'unique': 'True', 'primary_key': 'True'}),
+            'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+            'members': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['archive.Person']", 'null': 'True', 'through': "orm['archive.Membership']", 'symmetrical': 'False'}),
+            'picture': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'years_active': ('django.db.models.fields.CharField', [], {'max_length': '48', 'blank': 'True'})
         },
         'archive.membership': {
@@ -146,22 +171,23 @@ class Migration(SchemaMigration):
             'years': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'})
         },
         'archive.person': {
-            'Meta': {'object_name': 'Person'},
+            'Meta': {'object_name': 'Person', '_ormbases': ['archive.Article']},
             'alive': ('django.db.models.fields.NullBooleanField', [], {'null': 'True', 'blank': 'True'}),
+            'article_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['archive.Article']", 'unique': 'True', 'primary_key': 'True'}),
             'born': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'died': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'info': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '64'}),
-            'picture': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'slug': ('autoslug.fields.AutoSlugField', [], {'unique_with': '()', 'max_length': '50', 'populate_from': 'None', 'db_index': 'True'})
+            'picture': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'})
         },
         'archive.song': {
-            'Meta': {'object_name': 'Song'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'original_artist': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['archive.Artist']"}),
-            'slug': ('autoslug.fields.AutoSlugField', [], {'unique_with': '()', 'max_length': '50', 'populate_from': 'None', 'db_index': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '64'})
+            'Meta': {'object_name': 'Song', '_ormbases': ['archive.Article']},
+            'article_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['archive.Article']", 'unique': 'True', 'primary_key': 'True'}),
+            'original_artists': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['archive.Artist']", 'symmetrical': 'False'})
+        },
+        'archive.toparticle': {
+            'Meta': {'object_name': 'TopArticle'},
+            'article': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['archive.Article']"}),
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
         }
     }
 

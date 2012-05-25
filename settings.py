@@ -128,7 +128,7 @@ INSTALLED_APPS = (
 
 	
 	'util', # global utilities
-	'samodei', # homepage, global info (cities)
+	'jangr', # homepage, global info (cities)
 	'users', # user profiles
 	'mycomments', # comment customization
 	'documents',
@@ -149,7 +149,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 	"django.core.context_processors.media",
 	"django.core.context_processors.static",
 	"django.core.context_processors.request",
-	"samodei.context_processors.samodeus_util",
+	"global.context_processors.samodeus_util",
 	"allauth.context_processors.allauth",
     "allauth.account.context_processors.account"
 )

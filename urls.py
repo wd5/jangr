@@ -8,7 +8,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 	url(r'^comments/', include('mycomments.urls')),
-	url(r'^', include('samodei.urls')),
+	url(r'^', include('jangr.urls')),
 	url(r'^archive/', include('archive.urls')),
 	url(r'^catalog/', include('catalog.urls')),
 	url(r'^', include('newsevents.urls')),

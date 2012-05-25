@@ -14,7 +14,7 @@ class Migration(SchemaMigration):
             ('title', self.gf('django.db.models.fields.CharField')(max_length=200)),
             ('type', self.gf('django.db.models.fields.CharField')(default='nil', max_length=3)),
             ('slug', self.gf('autoslug.fields.AutoSlugField')(unique_with=(), max_length=50, populate_from=None, db_index=True)),
-            ('city', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['samodei.City'], null=True, blank=True)),
+            ('city', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['jangr.City'], null=True, blank=True)),
             ('description', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('contact_data', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('splash', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['documents.Document'], null=True, blank=True)),
@@ -66,15 +66,19 @@ class Migration(SchemaMigration):
 
 
     models = {
-        'archive.artist': {
-            'Meta': {'object_name': 'Artist'},
-            'city': ('django.db.models.fields.CharField', [], {'default': "'\\xd0\\xa1\\xd0\\xbe\\xd1\\x84\\xd0\\xb8\\xd1\\x8f'", 'max_length': '20'}),
-            'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+        'archive.article': {
+            'Meta': {'object_name': 'Article'},
+            'category': ('django.db.models.fields.CharField', [], {'max_length': '64'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'members': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['archive.Person']", 'null': 'True', 'through': "orm['archive.Membership']", 'symmetrical': 'False'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '64'}),
-            'picture': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'slug': ('autoslug.fields.AutoSlugField', [], {'unique_with': '()', 'max_length': '50', 'populate_from': 'None', 'db_index': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '64'})
+        },
+        'archive.artist': {
+            'Meta': {'object_name': 'Artist', '_ormbases': ['archive.Article']},
+            'article_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['archive.Article']", 'unique': 'True', 'primary_key': 'True'}),
+            'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
+            'members': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['archive.Person']", 'null': 'True', 'through': "orm['archive.Membership']", 'symmetrical': 'False'}),
+            'picture': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
             'years_active': ('django.db.models.fields.CharField', [], {'max_length': '48', 'blank': 'True'})
         },
         'archive.membership': {
@@ -87,19 +91,17 @@ class Migration(SchemaMigration):
             'years': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'})
         },
         'archive.person': {
-            'Meta': {'object_name': 'Person'},
+            'Meta': {'object_name': 'Person', '_ormbases': ['archive.Article']},
             'alive': ('django.db.models.fields.NullBooleanField', [], {'null': 'True', 'blank': 'True'}),
+            'article_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['archive.Article']", 'unique': 'True', 'primary_key': 'True'}),
             'born': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'died': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'info': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '64'}),
-            'picture': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'slug': ('autoslug.fields.AutoSlugField', [], {'unique_with': '()', 'max_length': '50', 'populate_from': 'None', 'db_index': 'True'})
+            'picture': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'})
         },
         'catalog.catalogentry': {
             'Meta': {'object_name': 'CatalogEntry'},
-            'city': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['samodei.City']", 'null': 'True', 'blank': 'True'}),
+            'city': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['jangr.City']", 'null': 'True', 'blank': 'True'}),
             'contact_data': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'gallery': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['documents.DocumentCollection']", 'null': 'True', 'blank': 'True'}),
@@ -152,7 +154,7 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'order': ('django.db.models.fields.IntegerField', [], {})
         },
-        'samodei.city': {
+        'jangr.city': {
             'Meta': {'object_name': 'City'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),

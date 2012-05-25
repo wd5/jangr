@@ -25,7 +25,7 @@ class PersonAdminForm(forms.ModelForm):
 
 class PersonAdmin(admin.ModelAdmin):
 	list_display = ['person_infobox',]
-	search_fields = ['name',]
+	search_fields = ['title',]
 	form = PersonAdminForm
 
 	def person_infobox(self,person):
@@ -37,13 +37,13 @@ class PersonAdmin(admin.ModelAdmin):
 		else:
 			dates = ""
 
-		return render_to_string("archive/admin-person-extra.html",{'name':person.name,'alive':person.alive,'dates':dates})
+		return render_to_string("archive/admin-person-extra.html",{'name':person.title,'alive':person.alive,'dates':dates})
 
 	person_infobox.allow_tags=True
 
 	
 class ArtistAdmin(admin.ModelAdmin):
-	list_display = ('name','years_active')
+	list_display = ('title','years_active')
 	inlines = [MembershipInline,]
 	
 class AlbumAdmin(admin.ModelAdmin):
