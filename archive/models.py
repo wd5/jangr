@@ -5,7 +5,7 @@ from django.db import models
 from genericm2m.models import RelatedObjectsDescriptor
 
 from patches.appengine import imagefield
-# from jangr.models import City
+# from homepage.models import City
 
 AlbumSide_Choices = (
 	('A', u'Страна А'),

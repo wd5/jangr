@@ -28,7 +28,7 @@ def login(request, *args, **kwargs):
 		
 def logout(request, *args, **kwargs):
 	django.contrib.auth.views.logout(request)
-	return HttpResponseRedirect(reverse('jangr.views.homepage'))
+	return HttpResponseRedirect(reverse('home.views.homepage'))
 	
 	
 def register(request, *args, **kwargs):

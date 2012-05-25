@@ -14,7 +14,7 @@ class Migration(SchemaMigration):
             ('title', self.gf('django.db.models.fields.CharField')(max_length=200)),
             ('type', self.gf('django.db.models.fields.CharField')(default='nil', max_length=3)),
             ('slug', self.gf('autoslug.fields.AutoSlugField')(unique_with=(), max_length=50, populate_from=None, db_index=True)),
-            ('city', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['jangr.City'], null=True, blank=True)),
+            ('city', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['home.City'], null=True, blank=True)),
             ('description', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('contact_data', self.gf('django.db.models.fields.TextField')(blank=True)),
             ('splash', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['documents.Document'], null=True, blank=True)),
@@ -101,7 +101,7 @@ class Migration(SchemaMigration):
         },
         'catalog.catalogentry': {
             'Meta': {'object_name': 'CatalogEntry'},
-            'city': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['jangr.City']", 'null': 'True', 'blank': 'True'}),
+            'city': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['home.City']", 'null': 'True', 'blank': 'True'}),
             'contact_data': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'gallery': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['documents.DocumentCollection']", 'null': 'True', 'blank': 'True'}),
@@ -154,7 +154,7 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'order': ('django.db.models.fields.IntegerField', [], {})
         },
-        'jangr.city': {
+        'home.city': {
             'Meta': {'object_name': 'City'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),

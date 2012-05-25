@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from autoslug import AutoSlugField
-from global.models import City
+from home.models import City
 from util import *
 from archive.models import Artist
 from documents.models import Document, DocumentCollection

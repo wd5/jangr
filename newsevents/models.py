@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 from autoslug import AutoSlugField
-#from util import *
-
 from django.db import models
 import util
 #from django.db.models import Model, permalink

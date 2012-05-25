@@ -99,25 +99,16 @@ INSTALLED_APPS = (
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
 	'django.contrib.admin',
-	# 'django.contrib.admindocs',
 	'django.contrib.comments',
 	'django.contrib.markup',
 	
 	'south', # south 0.7.3 -- schema migration manager
-	# 'compressor', # django_compressor
-    # 'debug_toolbar',
 	'sorl.thumbnail', # image thumbnailer
 	'genericm2m', # generic many-to-many relations
-	# 'mptt', # trees
-	# 'django-registration', # user signup
-	# 'tagging',
-	# 'easy_maps',
-	# 'feedjack', # feed aggregation
 	'filetransfers', # django-filetransfers
 	'autoslug',
 
 	'emailconfirmation',
-    #'uni_form',
 
     'allauth',
     'allauth.account',
@@ -125,10 +116,9 @@ INSTALLED_APPS = (
     'allauth.twitter',
     'allauth.openid',
     'allauth.facebook',
-
 	
 	'util', # global utilities
-	'jangr', # homepage, global info (cities)
+	'home', # homepage, global info (cities)
 	'users', # user profiles
 	'mycomments', # comment customization
 	'documents',
@@ -137,7 +127,7 @@ INSTALLED_APPS = (
 	'aggregator',
 	'catalog',
 	'forum',
-	# 'upload',
+	#'upload',
 
 	'djangoappengine',
 )
@@ -179,7 +169,7 @@ else:
 	STATIC_URL = '/static/'
 	MEDIA_URL = '/media/'
 	
-COMMENTS_APP = 'mycomments'
+#COMMENTS_APP = 'mycomments'
 AUTH_PROFILE_MODULE = 'users.UserProfile'
 
 SITE_ID = 1

@@ -81,7 +81,7 @@ class Migration(SchemaMigration):
         },
         'catalog.catalogentry': {
             'Meta': {'object_name': 'CatalogEntry'},
-            'city': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['jangr.City']", 'null': 'True', 'blank': 'True'}),
+            'city': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['home.City']", 'null': 'True', 'blank': 'True'}),
             'contact_data': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
             'gallery': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['documents.DocumentCollection']", 'null': 'True', 'blank': 'True'}),
@@ -142,7 +142,7 @@ class Migration(SchemaMigration):
             'start': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '200'})
         },
-        'jangr.city': {
+        'home.city': {
             'Meta': {'object_name': 'City'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '200'}),
