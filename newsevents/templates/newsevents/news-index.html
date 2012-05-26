@@ -1,0 +1,79 @@
+{% extends "page-two-columns.html" %}
+{% load comments %}
+{% block title %}Новини от българската музикална сцена :: Джангър{% endblock %}
+
+{% block content %}
+	
+	<h1>Новини</h1>
+
+	{% for article in news_list %}
+
+	{% include "newsevents/news-list-item.html" %}
+
+	{% endfor %}
+
+
+
+	{% for article in feed_posts %}
+
+	{% include "newsevents/news-list-item-external.html" %}
+
+	{% endfor %}
+		
+{% endblock %}
+
+
+{% block sidebar %}
+<section class="notification" style="margin-bottom:18px;">
+
+		<h2>Да те чуем!</h2>
+		Ще издаваш албум? Имаш блог за музика? Снощи беше на концерт на адската група? Вълнува ни всичко, свързано с българската авторска музика.<br />
+		<a class="btn" style="margin:4px 0;font-weight:bold">Разкажи ни!</a>
+		
+
+</section>
+
+<section>
+
+	<h2>Най-четени <small>от последните 7 дни</small></h2>
+	
+	<ul class="featured-list">
+		<li>
+			<hgroup>
+				<h3>Как се каляваше стоманата</h3>
+				Спомени от 1989
+			</hgroup>
+			<div class="icons">
+				<div class="icon-viewed"><div><div class="in-icon">754</div></div></div>
+				<div class="icon-commented"><div><div class="in-icon">22</div></div></div>
+				<div class="icon-date"><div><div class="in-icon">18.III</div></div></div>
+			</div>
+		</li>
+		<li>
+			<hgroup>
+				<h3>Къде зимуват "Раците"</h3>
+				Дневници на корабния музикант
+			</hgroup>
+			<div class="icons">
+				<div class="icon-viewed"><div><div class="in-icon">754</div></div></div>
+				<div class="icon-commented"><div><div class="in-icon">22</div></div></div>
+				<div class="icon-date"><div><div class="in-icon">18.III</div></div></div>
+			</div>
+		</li>
+		<li>
+			<hgroup>
+				<h3>Спонтанно нашествие от гвинейски павиани в софийски клуб</h3>
+				Няма ранени, само осрани
+			</hgroup>
+			<div class="icons">
+				<div class="icon-viewed"><div><div class="in-icon">754</div></div></div>
+				<div class="icon-commented"><div><div class="in-icon">22</div></div></div>
+				<div class="icon-date"><div><div class="in-icon">18.III</div></div></div>
+			</div>
+		</li>
+	</ul>
+	
+</section>
+
+
+{% endblock %}

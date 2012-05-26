@@ -1,0 +1,28 @@
+{% extends "page-two-columns.html" %}
+{% load thumbnail %}
+
+{% block title %} {{ artist.name }} – {{ album.title }} ({{ media.title }}) {% endblock %}
+
+{% block content %}
+
+<hgroup>
+<h1>{{ album.title }} {% if album.released %}({{ album.released }}){% endif %}</h1>
+<h2>Албум на {% for artist in album.artists.all %}{% if forloop.counter0 > 0 %}, {% endif %}<a href="{% url view-artist artist.slug %}">{{artist}}</a>{% endfor %}</h2>
+</hgroup>
+
+<section>
+
+{% regroup album.albumtrack_set.all by side as tracks %}
+
+<h3>Съдържание:</h3>{% for side in tracks %}
+{{ side.grouper }}
+<ul>
+	{% for track in side.list %}
+	<li>{{ track.number }}. <a href="{% url view-song track.song.original_artists.all.0.slug track.song.slug %}">{{ track.song }}</a> <span style="color:#777;">{{ track.song.original_artists.all.0 }}</span></li>
+	{% endfor %}
+</ul>
+{% endfor %}
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends "page-one-column.html" %}
+{% load thumbnail markup comments easy_maps_tags %}
+{% load url from future %}
+
+{% block title %}Каталог на сцени, музикални магазини, студиа {% endblock %}
+
+{% block page_content %}
+
+<article itemscope itemtype="http://schema.org/MusicVenue">
+
+	<meta itemprop="containedIn" content="{{ item.city }}"/>
+
+	
+	<header class="pageheader clearfix" style="margin-bottom:9px">
+		
+		<nav style="float:right;z-index:1;margin-bottom:0">
+			<a href=# class="span2 fan" style="text-align:center">
+				<div style="height:25px;background-image:url('{{ STATIC_URL }}img/glyphicons-black/glyphicons_048_dislikes.png');background-position:center;background-repeat:no-repeat"></div>
+				<h3>Стани фен!</h3>
+			</a>
+			<a href=# class="span2" style="text-align:center">
+				<div style="height:25px;background-image:url('{{ STATIC_URL }}img/glyphicons-black/glyphicons_011_camera.png');background-position:center;background-repeat:no-repeat"></div>
+				<h3>Галерия</h3>
+			</a>
+			<a href=# class="span2" style="text-align:center">
+				<div style="height:25px;background-image:url('{{ STATIC_URL }}img/glyphicons-black/glyphicons_139_phone.png');background-position:center;background-repeat:no-repeat"></div>
+				<h3>За контакти</h3>
+			</a>
+			<a href=# class="span2" style="text-align:center">
+				<div style="height:25px;background-image:url('{{ STATIC_URL }}img/glyphicons-black/glyphicons_060_compass.png');background-position:center;background-repeat:no-repeat"></div>
+				<h3>Карта</h3>
+			</a>
+		</nav>
+	
+		<h1 itemprop="name" style="line-height:45px;font-size:27px;">{{ item.title }}</h1>
+		
+	</header>
+	
+
+	<section class="photo-gallery section-white;">
+
+{% for media in item.gallery.documents.all %}
+{% if media.type == "img" %}
+
+		{% thumbnail media.image "945x270" crop="center" as im %}<img itemprop="photos" src="{{ im.url }}" style="width:100%;">{% endthumbnail %}
+
+{% endif %}
+{% endfor %}
+
+
+	<div class="row" style="padding:9px 0;">
+
+{% for media in item.gallery.documents.all %}
+{% if media.type == "img" %}
+
+		{% for k in 12345|make_list %}<div class="span" style="width:177px">
+			{% thumbnail media.image "177x81" crop="center" as im %}<img src="{{ im.url }}" style="width:100%;" />{% endthumbnail %}
+		</div>{% endfor %}	
+	
+{% endif %}
+{% endfor %}
+	
+	</div>
+
+
+	</section>
+
+
+	<section class="section-white" itemprop="description">
+
+{{ item.description|markdown }}
+
+	</section>
+
+
+{% if item.type == "ven" %}
+
+	<section class="section-white">
+
+		<h2>Предстоящи събития в {{ item.title }}</h2>
+		
+	</section>
+
+
+{% if item.related_artists.all %}
+	<section class="section-white">
+
+		<h2>Групи, свирили в {{ item.title }}</h2>
+		<ul class="visited-bands-list">
+		{% for artist in item.related_artists.all %}
+			{% if artist.picture %}
+			<li>
+			{% thumbnail artist.picture "45x45" crop="center" as im %}
+				<a href="{% url 'archive.views.view_artist' artist=artist.slug %}">
+					<img src="{{ im.url }}" alt="{{ artist.name }}" title="{{ artist.name }}" class="has-tooltip" />
+				</a>
+			{% endthumbnail %}
+			</li>
+			{% endif %}
+		{% endfor %}
+		</ul>
+		
+	</section>
+{% endif %}
+
+
+<section class="row section-black">
+<div class="span12">
+	<h2 style="text-shadow: 0 1px 0 black">Видео от {{ item.title }}</h2>
+	<div class="row">
+		{% for video in item.related.all %}{% if video.object.type == "vid" %}
+		<article>
+			<a class="span4 video-list-item" href="/view/{{ video.get_url }}">
+				<img src="http://placekitten.com/90/68" />
+				<h3>{{ video.object.title }}</h3>
+				<span class="label" style="background:#700">YouTube</span> 6:41
+			</a>
+		</article>
+		{% endif %}{% endfor %}
+	</div>
+</div>
+</section>
+{% endif %}
+
+
+<section class="section-white">
+{% get_comment_count for item as comment_count %}
+{% if comment_count %}
+	<h2>{{ comment_count }} {% if comment_count == 1%}отзив{% else %}отзива{% endif %} за {{ item.title }}</h2>
+{% else %}
+	<h2>Какво мислиш за {{ item.title }}?</h2>
+{% endif %}
+
+{% render_comment_list for item %}
+
+{% render_comment_form for item %}
+</section>
+
+
+</article>
+
+{% endblock %}
+
+{% block sidebar %}
+<h1>За контакти</h1>
+{{ item.contact_data|markdown }}
+{% easy_map "Бар \"Пиратите\"" 225 300 14 %}
+
+{% endblock %}
+
+</div>

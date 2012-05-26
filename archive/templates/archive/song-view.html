@@ -1,0 +1,17 @@
+{% extends "page-two-columns.html" %}
+{% load thumbnail %}
+
+{% block title %} {{ artist.name }} – {{ song.title }} {% if media.title %}({{ media.title }}){% endif %} :: Джангър {% endblock %}
+
+{% block content %}
+
+<h1>{{ artist.name }} &ndash; {{ song.title }}</h1>
+
+{% for media in artist.document_set.all %}
+lol
+<h2>{{ media.title }}</h2>
+<section style="white-space:pre">{{media.text}}</section>
+
+{% endfor %}
+
+{% endblock %}

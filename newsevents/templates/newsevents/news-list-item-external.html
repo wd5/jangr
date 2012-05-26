@@ -1,0 +1,41 @@
+{% load thumbnail comments %}
+<article class="{% if article.pic %}row{% endif %} news-article">
+	{% if article.pic %}
+	<div class="span4">
+		<a href="#">{% thumbnail article.pic.image "400x216" crop="center" as im %}<img src="{{ im.url }}" style="width:100%">{% endthumbnail %}</a>
+	</div>
+	
+	<div class="span8">
+	{% endif %}
+		<header class="clearfix">
+			<div class="article-sidebox">
+				<div style="height:45px">
+					<span class="day-{{article.day}}">{{article.day}}26</span>
+					<span class="month-{{article.nmonth}}">{{article.month}}Март</span>
+					<span class="year-{{article.year}}">{{article.year}}2012</span>
+				</div>
+			</div>
+			<hgroup>
+				<a href="{{ article.get_absolute_url }}">
+					<h2 style="font-style:italic">{{ article.title }}</h2>
+					<h3>прочети в <b>{{ article.from_feed.title }}</b> &rarr;</h3>
+				</a>
+			</hgroup>
+			{% if article.tags %}
+			<div class="news-detail"><i class="icon-tag"></i> жица</div>
+			{% endif %}
+		</header>
+		
+		{% if show_top_comments %}
+		<ul class="article-comments">
+			{% get_comment_list for article as comments %}
+			{% for comment in comments|slice:":2" %}
+			{#{% for comment in article.chosen_comments %}#}
+			<li style="margin-bottom:5px"><span class="article-comment-author">{{ comment.name }}</span>{{ comment.comment }}</li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+	{% if article.pic %}
+	</div>
+	{% endif %}
+</article>

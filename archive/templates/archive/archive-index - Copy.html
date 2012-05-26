@@ -1,0 +1,117 @@
+{% extends "page-outer.html" %}
+{% load thumbnail %}
+
+{% block title %}Енциклопедия на българския рок {% endblock %}
+
+{% block page %}
+
+<div class="content">
+
+<div class="main">
+
+<h1 style="text-align:center">Българска рок-енциклопедия</h1>
+
+<nav>
+	<ul class="dot-list">
+		<li><a href="{% url artist-list %}">Групите</a></li>
+		<li><a href="people">Хората</a></li>
+		<li><a href="songs">Песните</a></li>
+		<li><a href="events">Събитията</a></li>
+	</ul>
+</nav>
+
+<section class="clearfix">
+	<h2 class="section-small-heading"><span>Избрана статия</span></h2>
+	<img src="http://placekitten.com/270/204" style="float:left;margin-right:21px;"/>
+	<div style="float:left;width:249px">
+		<h1>Контрол</h1>
+		<p>„Контрол“ се появява на музикалната сцена в края на 80-те. Първият им албум, записан съвместно с Нова Генерация, е със заглавие „Плочата“ и е пуснат на пазара през 1989 година като част от проекта „БГ Рок“. Хитови парчета от „Плочата“ стават песните „Обичам те, мила“ и „100-150“, които превръщат Контрол в една от актуалните български групи в страната.</p>
+	</div>
+</section>
+
+<section>
+	<h2 class="section-small-heading"><span>Новости</span></h2>
+	<article class=clearfix>
+		<img src="http://placekitten.com/182/137" style="float:left;margin-right:21px;"/>
+		<div style="float:left;width:252px">
+			<h2>Контрол</h2>
+			<p>Обновена е статията за група Контрол, добавени са текстове на 5 парчета.</p>
+		</div>
+	</article>
+	<article class=clearfix></article>
+	<article class=clearfix></article>
+</section>
+
+<section>
+
+{% comment %}
+<header class="clearfix">
+	<div style="float:right;">
+		<div class="btn-group" style="display: inline-block">
+			<a class="btn btn-round has-tooltip" title="Добави нов изпълнител" href="../artists/add"><i class="icon-plus"></i> Добави</a>
+		</div>
+		<div class="btn-group" style="display: inline-block">
+			<!--<a class="btn has-tooltip" href=# title="Виж със снимки"><i class="icon-th"></i></a>-->
+			<a class="btn has-tooltip" href="/artists/" title="Виж списък на всички изпълнители"><i class="icon-list"></i> Виж всички</a>
+		</div>
+	</div>
+	<a href="/artists/"><h2 style="display:inline">Изпълнители</h2></a>
+</header>
+{% endcomment %}
+
+
+{% if artist_list %}
+<h2 class="section-small-heading"><span>Групи</span></h2>
+    <ul class="thumb-list">
+    {% for artist in artist_list %}
+        <li itemscope itemtype="http://schema.org/MusicGroup">
+			<a href="{% url view-artist artist.slug %}">
+				<div class="info">
+					<img src="/devstatic/img/revuicon.png" />
+					<span itemprop="name">{{ artist.name }}</span>
+					<div class="details"></div>
+				</div>
+			</a>
+		</li>
+    {% endfor %}
+    </ul>
+</section> <!-- end artists -->
+{% endif %}
+
+
+{% if person_list %}
+<section>
+
+<h2 class="section-small-heading"><span>Личности</span></h2>
+
+<ul class="thumb-list">
+{% for person in person_list %}
+	<li class="box-sized span4">
+		<a href="{% url view-person person.slug %}">
+			<div class="info">{{ person.name }}</div>
+		</a>
+	</li>
+{% endfor %}
+</ul>
+	
+</section> <!-- end people -->
+{% endif %}
+
+</div>
+
+<div class="sidebar">
+<form class="topright-searchform"><input type=text class="search-query span3" /><input type=submit value="" class="span1" /></form>
+
+<p>Добре дошли в проекта "Българска рок енциклопедия" на <a href="/"><strong>Джангър</strong></a>! Тук ще откриете <a href=#>текстове и акорди на български песни</a>, информация за стари и нови <a href=#>български групи</a>, както и кой кой е в <a href=#>българската авторска музика</a>.</p>
+
+<p>Ако се сещаш за нещо, което го няма в енциклопедията, ще се радваме да попълним пропуските.</p>
+
+<h2>Съставители</h2>
+<p>Енциклопедията се основава главно на архивите на <a href="http://soundcloud.com/muzkutia">Емил Братанов</a>, <a href="http://ri4ivul.blog.bg">Румен Вълков</a>, както и на разнообразна информация, събрана от мрежата.</p>
+
+
+</div>
+
+</div>
+
+{% endblock %}

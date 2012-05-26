@@ -1,0 +1,75 @@
+{% extends "page-two-columns.html" %}
+{% load thumbnail comments event_calendar %}
+{% block title %}Предстоящи събития - концерти, фестивали, конкурси :: Джангър{% endblock %}
+
+{% block content %}
+
+{% regroup events|dictsort:"start" by start.date as events_by_date %}
+
+<h1>Афиш</h1>
+
+	{% if events_now %}
+	<article style="margin-bottom:9px">
+
+		<h2><small class="date-display">В момента</small></h2>
+
+		{% for event in events_now|dictsort:"end" %}
+		
+		{% include "newsevents/events-list-item.html" %}
+		
+		{% endfor %}
+
+	</article>
+	{% endif %}
+
+	
+	{% for day in events_by_date %}
+	<article style="margin-bottom:9px">
+
+		<h2><small class="event-list-date">{{day.grouper|date:"D, d M"}}</small></h2>
+
+		{% for event in day.list %}
+		
+		{% include "newsevents/events-list-item.html" %}
+		
+		{% endfor %}
+
+	</article>
+	{% endfor %}
+		
+
+{% endblock %}
+
+
+{% block sidebar %}
+<section>
+
+	<div class="btn-group">
+		<button class="btn">Всички градове</button>
+		<button class="btn">София</button>
+		<button class="btn">Варна</button>
+	</div>
+
+</section>
+
+<section class="clearfix" style="margin-bottom:9px">
+
+	<div class="clearfix">
+	{% for i in "ПВСЧПСН"|make_list %}
+		<div class="calendar-weekday" style="padding:9px 0;text-align:center">{{ i }}</div>
+	{% endfor %}
+	</div>
+
+	{% draw_calendar %}
+
+</section>
+
+<section class="notification" style="margin-bottom:18px;">
+
+		<a class="btn" style="margin:4px 0;font-weight:bold">Обяви събитие</a>
+		<p>Събитията, които обявиш тук, се публикуват автоматично в социалните мрежи и редица музикални сайтове.</p>
+
+</section>
+
+
+{% endblock %}
